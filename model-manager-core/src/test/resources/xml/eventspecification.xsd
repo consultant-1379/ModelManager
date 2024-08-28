@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+    <!-- basic types: general -->
+    <xsd:simpleType name="revisionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:pattern value="[A-Z]+[0-9]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="ffvType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[ 0-9\-]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="revisionHistoryType">
+        <xsd:sequence>
+            <xsd:element name="revisionhistoryelem" type="revisionHistoryElementType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="revisionHistoryElementType">
+        <xsd:sequence>
+            <xsd:element name="revision" type="revisionType"/>
+            <xsd:element name="comment" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- general tags for events and params -->
+
+     <xsd:simpleType name="rncApplicationMode">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="FDD"/>
+            <xsd:enumeration value="TDD"/>
+            <xsd:enumeration value="BOTH"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <!-- basic types: events -->
+    <xsd:complexType name="decodeDisplayType">
+        <xsd:sequence>
+            <xsd:element name="display" type="yesNoType"/>
+            <xsd:element name="decode" type="yesNoType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="eventNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Z0-9_]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="eventIdType">
+        <xsd:restriction base="xsd:nonNegativeInteger">
+            <xsd:maxInclusive value="2047"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="protocolType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="RRC"/>
+            <xsd:enumeration value="NBAP"/>
+            <xsd:enumeration value="RANAP"/>
+            <xsd:enumeration value="INTERNAL"/>
+            <xsd:enumeration value="RNSAP"/>
+            <xsd:enumeration value="INTERNAL_MEAS"/>
+            <xsd:enumeration value="PCAP"/>
+            <xsd:enumeration value="SABP"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="yesNoType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Yes"/>
+            <xsd:enumeration value="No"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="yesNoTypeLowerCase">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="yes"/>
+            <xsd:enumeration value="no"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="activationType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Ue"/>
+            <xsd:enumeration value="All"/>
+            <xsd:enumeration value="-"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="paramRefType">
+        <xsd:simpleContent>
+            <xsd:extension base="paramRefSimpleType">
+                <xsd:attribute name="variablelength" type="xsd:boolean" use="optional" default="false"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="paramRefSimpleType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="EVENT_PARAM_[A-Z0-9_]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="fieldSimpleType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="EVENT_PARAM_[A-Z0-9_]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="fieldType">
+        <xsd:simpleContent>
+            <xsd:extension base="fieldSimpleType">
+                <xsd:attribute name="mapto" type="paramRefSimpleType" use="optional"/>
+                <xsd:attribute name="bits" use="optional">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:positiveInteger">
+                            <xsd:maxInclusive value="32"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="fileFormatType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramRefType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="intFormatType">
+        <xsd:sequence>
+            <xsd:element name="field" type="fieldType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <!-- basic types: parameter -->
+    <xsd:simpleType name="paramNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="EVENT_PARAM_[A-Z0-9_]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="rncModeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="FDD"/>
+            <xsd:enumeration value="TDD"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="paramTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="UINT"/>
+            <xsd:enumeration value="ENUM"/>
+            <xsd:enumeration value="BITSTRING"/>
+            <xsd:enumeration value="STRING"/>
+            <xsd:enumeration value="BYTEARRAY"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="enumerationType">
+	<xsd:sequence>
+            <xsd:element name="enumValue" type="enumerationElemType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+	<xsd:attribute name="rncapplicationmode" type="rncModeType"/>
+    </xsd:complexType>
+    <xsd:complexType name="enumerationElemType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="value" type="xsd:nonNegativeInteger"/>
+                <xsd:attribute name="internal" type="internalEnumNameType"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="internalEnumNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="EVENT_[A-Z0-9_]+"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!-- level 2: eventType, parameterType -->
+    <xsd:complexType name="eventType">
+        <xsd:sequence>
+            <xsd:element name="eventname" type="eventNameType"/>
+            <xsd:element name="rncapplicationmode" type="rncApplicationMode"/>
+            <xsd:element name="eventid" type="eventIdType"/>
+            <xsd:element name="protocol" type="protocolType"/>
+            <xsd:element name="requirement" type="xsd:string"/>
+            <xsd:element name="triggerdescription" type="xsd:string"/>
+            <xsd:element name="triggerevent" type="yesNoType"/>
+            <xsd:element name="eventcomments" type="xsd:string"/>
+            <xsd:element name="osscomments" type="xsd:string"/>
+            <xsd:element name="rncfunction" type="xsd:string"/>
+            <xsd:element name="topcapsuleforreporting" type="xsd:string"/>
+            <xsd:element name="activationlevels">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ctr" type="activationType"/>
+                        <xsd:element name="uetr" type="activationType"/>
+                        <xsd:element name="gpeh" type="activationType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="oss">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="recording" type="decodeDisplayType"/>
+                        <xsd:element name="gpeh" type="decodeDisplayType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="fileformat" type="fileFormatType"/>
+            <xsd:element name="intformat" type="intFormatType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="parameterType">
+        <xsd:sequence>
+            <xsd:element name="paramname" type="paramNameType"/>
+            <xsd:element name="rncapplicationmode" type="rncApplicationMode"/>
+	    <xsd:element name="paramtype" type="paramTypeType"/>
+            <xsd:element name="paramdescription" type="xsd:string"/>
+            <xsd:element name="numberofbits" type="xsd:nonNegativeInteger"/>
+            <xsd:element name="usevalidbit" type="yesNoType"/>
+            <xsd:element name="range" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="low" type="xsd:nonNegativeInteger"/>
+                        <xsd:element name="high" type="xsd:nonNegativeInteger"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="paramresolution" type="xsd:string"/>
+            <xsd:element name="paramunit" type="xsd:string"/>
+            <xsd:element name="paramcomments" type="xsd:string"/>
+            <xsd:element name="enumeration" type="enumerationType" minOccurs="0" maxOccurs="2">
+                <xsd:unique name="uniqueEnumInternalName">
+                    <xsd:selector xpath="enumValue"/>
+                    <xsd:field xpath="@internal"/>
+                </xsd:unique>
+                <xsd:unique name="uniqueEnumValue">
+                    <xsd:selector xpath="enumValue"/>
+                    <xsd:field xpath="@value"/>
+                </xsd:unique>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="enumerationValueType" mixed="true">
+	<xsd:attribute name="value" type="xsd:nonNegativeInteger"/>
+    </xsd:complexType>
+    <xsd:complexType name="bitfieldEnumerationType">
+        <xsd:sequence>
+		<xsd:element name="enumerationvalue" type="enumerationValueType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="bitfieldType">
+        <xsd:sequence>
+		<xsd:element name="bitfielddescription" type="xsd:string"/>
+		<xsd:element name="bitfieldenumeration" type="bitfieldEnumerationType"/>
+        </xsd:sequence>
+	<xsd:attribute name="name" type="eventNameType"/>
+	<xsd:attribute name="used" type="yesNoTypeLowerCase"/>
+ 	<xsd:attribute name="length" type="xsd:nonNegativeInteger"/>
+	<xsd:attribute name="start" type="xsd:nonNegativeInteger"/>
+    </xsd:complexType>
+    <xsd:complexType name="parameterExtType">
+    	<xsd:sequence>
+		<xsd:element name="paramextdescription" type="xsd:string"/>
+		<xsd:element name="paramextcomments" type="xsd:string"/>
+		<xsd:element name="bitfield" type="bitfieldType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+	<xsd:attribute name="name" type="paramNameType"/>
+    </xsd:complexType>
+
+    <!-- level 1: general, eventListType, parameterListType -->
+    <xsd:complexType name="generalType">
+        <xsd:sequence>
+            <xsd:element name="docno" type="xsd:string"/>
+            <xsd:element name="revision" type="revisionType"/>
+            <xsd:element name="date" type="xsd:date"/>
+            <xsd:element name="author" type="xsd:string"/>
+            <xsd:element name="increment" type="xsd:string"/>
+            <xsd:element name="ffv" type="ffvType"/>
+            <xsd:element name="revisionhistory" type="revisionHistoryType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="eventListType">
+        <xsd:sequence>
+            <xsd:element name="event" type="eventType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="parameterListType">
+        <xsd:sequence>
+            <xsd:element name="parameter" type="parameterType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="parameterListExtType">
+        <xsd:sequence>
+            <xsd:element name="parameterext" type="parameterExtType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+   
+    <!-- root level -->
+    <xsd:complexType name="rootType">
+        <xsd:sequence>
+            <xsd:element name="general" type="generalType"/>
+            <xsd:element name="externalevents" type="eventListType"/>
+            <xsd:element name="internalevents" type="eventListType"/>
+            <xsd:element name="parameters" type="parameterListType"/>
+	    <xsd:element name="parameterbitfielddefinitions" type="parameterListExtType" maxOccurs="1" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- document root -->
+    <xsd:element name="eventspecification" type="rootType">
+        <!-- constraints -->
+        <xsd:unique name="eventIdUnique">
+            <xsd:selector xpath="*/event/eventid"/>
+            <xsd:field xpath="."/>
+        </xsd:unique>
+        <xsd:unique name="eventNameUnique">
+            <xsd:selector xpath="*/event/eventname"/>
+            <xsd:field xpath="."/>
+        </xsd:unique>
+        <xsd:keyref name="paramNameRefFileFormat" refer="paramNameKey">
+            <xsd:selector xpath="*/event/fileformat/param"/>
+            <xsd:field xpath="."/>
+        </xsd:keyref>
+        <xsd:keyref name="paramNameRefIntFormat" refer="paramNameKey">
+            <xsd:selector xpath="*/event/intformat/field"/>
+            <xsd:field xpath="@mapto"/>
+        </xsd:keyref>
+        <xsd:key name="paramNameKey">
+            <xsd:selector xpath="parameters/parameter/paramname"/>
+            <xsd:field xpath="."/>
+        </xsd:key>
+    </xsd:element>
+
+</xsd:schema>

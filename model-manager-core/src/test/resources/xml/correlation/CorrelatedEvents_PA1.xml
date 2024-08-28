@@ -1,0 +1,3311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventspecification xmlns="http://www.ericsson.com/PmEvents">
+    <general>
+        <docno>LMI-11:0000</docno>
+        <revision>PA1</revision>
+        <date>2015-11-02</date>
+        <author>Saj</author>
+        <ffv>1</ffv>
+        <fiv>1</fiv>
+        <revisionhistory>
+            <revisionhistoryelem>
+                <revision>PA1</revision>
+                <comment>2015-11-02, LMI/LXR/SH Sajeevan Achuthan</comment>
+            </revisionhistoryelem>
+        </revisionhistory>
+        <protocols>
+            <protocol>
+                <name>RRC</name>
+                <specification>36.331</specification>
+                <version>9.2.0</version>
+            </protocol>
+            <protocol>
+                <name>S1AP</name>
+                <specification>36.413</specification>
+                <version>9.2.0</version>
+            </protocol>
+            <protocol>
+                <name>X2AP</name>
+                <specification>36.423</specification>
+                <version>9.2.0</version>
+            </protocol>
+        </protocols>
+    </general>
+    <!-- Note: <extracolumns> and <extracolumn> are tags used to add extra columns 
+		at the beginning of an event table. These columns are added by the parser. -->
+ 	<!-- <extracolumns>
+        <extracolumn type="TIMESTAMP">EVENT_TIME</extracolumn>
+        <extracolumn type="TEXT">SUBNET_NAME</extracolumn>
+        <extracolumn type="TEXT">NE_NAME</extracolumn>
+        <extracolumn type="TEXT">EVENT_NAME</extracolumn>
+        <extracolumn type="TEXT">EVENT_VERSION</extracolumn>
+    </extracolumns> -->
+    <parametertypes>
+        <parametertype>
+            <name>DURATION</name>
+            <type>UINT</type>
+            <description>Duration of this correlated event, this is a long time
+                value in milliseconds</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HANDOVER_EVENT_RESULT</name>
+            <type>UINT</type>
+            <description>ENB and MME result</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>EVENT_NAME</name>
+            <type>STRING</type>
+            <description>The name of an event used in a correlation</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>STRING_TYPE</name>
+            <type>STRING</type>
+            <description>The name of an event used in a correlation</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>MILESTONE_NAME</name>
+            <type>STRING</type>
+            <description>The name of a milestone in a correlation</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>TIMESTAMP</name>
+            <type>LONG</type>
+            <description>A time stamp</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+         <parametertype>
+			<name>RAT_TEXT</name>
+			<type>STRING</type>
+			<description>The name of a milestone in a correlation</description>
+			<numberofbytes>256</numberofbytes>
+		</parametertype>
+        <parametertype>
+            <name>BOOLEAN</name>
+            <type>BOOLEAN</type>
+            <description>A boolean value</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1</high>
+            </range>
+        </parametertype>
+         <parametertype>
+            <name>RSRQ_MEAN</name>
+            <type>UINT</type>
+            <description>Translated mean value  RSRQ measurements during the aggregation period.</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>1</low>
+                <high>3</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RSRP_MEAN</name>
+            <type>UINT</type>
+            <description>Translated mean value  RSRP measurements during the aggregation period.</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>1</low>
+                <high>3</high>
+            </range>
+        </parametertype>
+         <parametertype>
+            <name>RSRP_RSRQ_REPORTED</name>
+            <type>STRING</type>
+            <description>Generic name</description>
+            <numberofbytes>128</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>TEMP</name>
+            <type>LONG</type>
+            <description>Duration of this correlated event, this is a long time
+                value in milliseconds</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>IMSI</name>
+            <type>TBCD</type>
+            <description>International Mobile Subscriber Identity</description>
+            <detaileddescription>
+                5-15 digits, TBCD (Telephony Binary Coded
+                Decimal), each digit
+                represented by 4 bits.Padded with '1111' for
+                each unused digit up to
+                a total length of 8 octets/16 digits.For more
+                information see:3GPP
+                TS 23.003 (ch 2.2) for the composition and TS
+                29.060 (ch 7.7.2) for
+                the coding.
+            </detaileddescription>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>IMSI_LONG</name>
+            <type>UINT</type>
+            <description>International Mobile Subscriber Identity</description>
+            <detaileddescription>
+                5-15 digits, TBCD (Telephony Binary Coded
+                Decimal), each digit
+                represented by 4 bits.Padded with '1111' for
+                each unused digit up to
+                a total length of 8 octets/16 digits.For more
+                information see:3GPP
+                TS 23.003 (ch 2.2) for the composition and TS
+                29.060 (ch 7.7.2) for
+                the coding.
+            </detaileddescription>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>IMEISV</name>
+            <type>TBCD</type>
+            <description>International Mobile Equipment Identity Software Version
+            </description>
+            <detaileddescription>
+                3 sets of digits, 8, 6, and 2 digits
+                respectively. TBCD (Telephony
+                Binary Coded Decimal), each digit
+                represented by 4 bits.Padded with
+                '1111' for each unused digit upto a
+                total length of 8 octets/16
+                digits. A value of all zeros indicates
+                that IMEISV is not available.
+            </detaileddescription>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>UINT_1</name>
+            <type>UINT</type>
+            <description>Generic 1 byte unsigned integer</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>255</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>UINT_2</name>
+            <type>UINT</type>
+            <description>Generic 2 byte unsigned integer</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>UINT_4</name>
+            <type>UINT</type>
+            <description>Generic 4 byte unsigned integer</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SINT_4</name>
+            <type>UINT</type>
+            <description>Generic 4 byte signed integer</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>UINT_8</name>
+            <type>UINT</type>
+            <description>Generic 8 byte unsigned integer</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>9223372036854775807</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>GENERIC_FLOAT</name>
+            <type>FLOAT</type>
+            <description>Generic float</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>GENERIC_DOUBLE</name>
+            <type>DOUBLE</type>
+            <description>Generic float</description>
+            <numberofbytes>12</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>EVENT_RESULT</name>
+            <type>ENUM</type>
+            <description>Result of the Event Procedure</description>
+            <numberofbytes>4</numberofbytes>
+            <enumeration>
+                <enum internal="SUCCESS" value="0">SUCCESS</enum>
+                <enum internal="PARTIAL" value="1">PARTIAL</enum>
+                <enum internal="FAILED" value="2">FAILED</enum>
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>S1_X2_HANDOVER_TYPE</name>
+            <type>STRING</type>
+            <description>Whether the handover is of type S1 or X2</description>
+            <numberofbytes>20</numberofbytes>
+        </parametertype>
+
+
+
+
+        <parametertype>
+            <name>MME_HANDOVER_TYPE</name>
+            <type>STRING</type>
+            <description>Type of Handover</description>
+            <numberofbytes>20</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>HANDOVER_RESULT</name>
+            <type>STRING</type>
+            <description>Type of Handover</description>
+            <numberofbytes>11</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>RANDOM_ACCESS_TYPE</name>
+            <type>UINT</type>
+            <description>Random Access Type
+            </description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2</high>
+            </range>
+        </parametertype>
+
+
+        <parametertype>
+            <name>TARGET_SELECTION_TYPE</name>
+            <type>UINT</type>
+            <description>The type of selection for the handover target cell: blind (non measurement based, i.e. based on preconfigured information), or measurement based
+            </description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>9</high><!-- 0 or 1 is valid-->
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>HO_ATTEMPT_CAUSE</name>
+            <type>UINT</type>
+            <description>Handover attempt cause
+            </description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1023</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>REASON</name>
+            <type>STRING</type>
+            <description>The Reason</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>CAUSE_CODE</name>
+            <type>UINT</type>
+            <description>This information element provides "Reason for failure"
+                information.
+                In order to get the protocol from where the Cause Code in an event
+                originates,
+                the parameter "L_CAUSE_PROT_TYPE" value should be analyzed.
+            </description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1023</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SUB_CAUSE_CODE</name>
+            <type>UINT</type>
+            <description>This information element provides "Detailed reason for
+                failure" information.
+                This information should be analyzed together with the "Cause Code"
+                parameter and
+                the "L_CAUSE_PROT_TYPE" parameter.</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1023</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>CAUSE_PROT_TYPE</name>
+            <type>ENUM</type>
+            <description>Protocol type of the failure cause </description>
+            <numberofbytes>1</numberofbytes>
+            <enumeration>
+                <enum internal="RIL3_CAUSE" value="0">RIL3</enum>
+                <enum internal="GTP_CAUSE" value="1">GTP</enum>
+                <enum internal="RIL3_CAUSE2" value="2">RIL3 (for causes where the
+                    same value can have different meaning between MM and SM)</enum>
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>MTMSI</name>
+            <type>UINT</type>
+            <description>M-Temporary Mobile Subscriber Identity</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>VOL_TOTAL_UL</name>
+            <type>UINT</type>
+            <description>M-Temporary Mobile Subscriber Identity</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MMEC</name>
+            <type>UINT</type>
+            <description>MME Code</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>255</high>
+            </range>
+        </parametertype>
+      
+        <parametertype>
+            <name>EVENT_PARAM_MMES1APID</name>
+            <type>UINT</type>
+            <description>MME S1 AP ID</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TAC</name>
+            <type>UINT</type>
+            <description>Tracking Area Code. This element is used to uniquely
+                identify a Tracking Area Code.</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65535</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>HANDOVER_TYPE</name>
+            <type>STRING</type>
+            <description>Type of Handover</description>
+            <numberofbytes>20</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>HANDOVER_RAT_CHANGE_TYPE</name>
+            <type>STRING</type>
+            <description>RAT Change Type of Handover</description>
+            <numberofbytes>20</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>HANDOVER_SGW_CHANGE_TYPE</name>
+            <type>STRING</type>
+            <description>SGW Change Type of Handover</description>
+            <numberofbytes>10</numberofbytes>
+        </parametertype>
+
+
+        <parametertype>
+            <name>PROC_HO_PREP_OUT_ATTEMPT_CAUSE</name>
+            <type>ENUM</type>
+            <description>The cause of the procedure for HO Preparation
+            </description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_EVENT_A1_REPORTED_BY_UE" value="0" />
+                <enum internal="EVENT_VALUE_EVENT_A2_REPORTED_BY_UE" value="1" />
+                <enum internal="EVENT_VALUE_EVENT_A3_REPORTED_BY_UE" value="2" />
+                <enum internal="EVENT_VALUE_EVENT_A4_REPORTED_BY_UE" value="3" />
+                <enum internal="EVENT_VALUE_EVENT_A5_REPORTED_BY_UE" value="4" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>PROC_HO_PREP_OUT_RESULT</name>
+            <type>ENUM</type>
+            <description>The result of the HO Preparation Procedure</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_SUCCESSFUL" value="0" />
+                <enum internal="EVENT_VALUE_FAILED_HANDOVER_PREPARATION" value="1" />
+                <enum internal="EVENT_VALUE_FAILED_TRELOCPREP_EXPIRED" value="2" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>PROC_HO_EXEC_OUT_RESULT</name>
+            <type>ENUM</type>
+            <description>The result of the HO Execution Procedure</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>3</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_SUCCESSFUL" value="0" />
+                <enum internal="EVENT_VALUE_FAILED_HANDOVER_EXECUTION" value="1" />
+                <enum internal="EVENT_VALUE_FAILED_TRELOCOVERALL_EXPIRED"
+                      value="2" />
+                <enum internal="EVENT_VALUE_ABORTED_BY_MME_RELEASE" value="3" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>PROC_HO_PREP_IN_RESULT</name>
+            <type>ENUM</type>
+            <description>The result of the HO Preparation Procedure</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>11</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_SUCCESSFUL" value="0" />
+                <enum internal="EVENT_VALUE_FAILED_RESOURCE_RESERVATION" value="1" />
+                <enum internal="EVENT_VALUE_FAILED_LICENSE_NUMBER_OF_ACTIVE_USERS"
+                      value="2" />
+                <enum internal="EVENT_VALUE_FAILED_LICENSE_INTRA_LTE_INTRA_FREQ_HANDOVER"
+                      value="3" />
+                <enum internal="EVENT_VALUE_MULTIPLE_ERAB_LICENSE_EXCEEDED"
+                      value="4" />
+                <enum internal="EVENT_VALUE_RLCUM_LICENSE_MISSING" value="5" />
+                <enum internal="EVENT_VALUE_FAILED_MME_SELECTION" value="6" />
+                <enum internal="EVENT_VALUE_FAILED_LICENSE_INTRA_LTE_INTER_FREQ_HANDOVER"
+                      value="7" />
+                <enum internal="EVENT_VALUE_FAILED_LICENSE_CDMA2000_HANDOVER"
+                      value="8" />
+                <enum internal="EVENT_VALUE_FAILED_LICENSE_GERAN_HANDOVER"
+                      value="9" />
+                <enum internal="EVENT_VALUE_FAILED_LICENSE_WCDMA_HANDOVER"
+                      value="10" />
+                <enum internal="EVENT_VALUE_ERAB_ID_CONFLICT" value="11" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>PROC_HO_EXEC_IN_RESULT</name>
+            <type>ENUM</type>
+            <description>The result of the HO Execution Procedure</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>3</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_SUCCESSFUL" value="0" />
+                <enum internal="EVENT_VALUE_FAILED_TRRCCONNECTIONRECONFIGURATION_EXPIRED"
+                      value="1" />
+                <enum internal="EVENT_VALUE_FAILED_PATH_SWITCH" value="2" />
+                <enum internal="EVENT_VALUE_FAILED_TIME_OUT_OF_PATH_SWITCH_REQUEST"
+                      value="3" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>HO_PACKET_FORWARD</name>
+            <type>ENUM</type>
+            <description>Indicates if packet forward is used or not</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_PACKET_FORWARD" value="0" />
+                <enum internal="EVENT_VALUE_NO_PACKET_FORWARD" value="1" />
+            </enumeration>
+        </parametertype>
+
+        <parametertype>
+            <name>ENB_ID</name>
+            <type>UINT</type>
+            <description>eNodeB ID</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RAC_UE_REF</name>
+            <type>UINT</type>
+            <description>The UE identity used in service between RAC layer and Baseband.</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32767</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>ENB_NAME</name>
+            <type>STRING</type>
+            <description>eNodeB name</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>GLOBAL_CELL_ID</name>
+            <type>UINT</type>
+            <description>Identity of the cell, defined in MOM (eNB ID (20 bits) +
+                Cell ID (8 bits) )</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+            <comment>ECGI, E-UTRAN Cell Global Identifier. The eNB ID part will
+                not be set in iteration 9.</comment>
+        </parametertype>
+        <parametertype>
+            <name>NAME_3</name>
+            <type>STRING</type>
+            <description>Generic name</description>
+            <numberofbytes>3</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>NAME_32</name>
+            <type>STRING</type>
+            <description>Generic name</description>
+            <numberofbytes>32</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>NAME_127</name>
+            <type>STRING</type>
+            <description>Generic name</description>
+            <numberofbytes>127</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>NAME_128</name>
+            <type>STRING</type>
+            <description>Generic name</description>
+            <numberofbytes>128</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>NAME_256</name>
+            <type>STRING</type>
+            <description>Generic name</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>PCI</name>
+            <type>UINT</type>
+            <description>Physical Cell ID of the neighbor cell</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32767</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>CGI</name>
+            <type>BINARY</type>
+            <description>Global Cell ID of the neighbor cell</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ENBS1APID</name>
+            <type>UINT</type>
+            <description>eNB S1 AP ID</description>
+            <numberofbytes>3</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>8388607</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MMES1APID</name>
+            <type>UINT</type>
+            <description>MME S1 AP ID</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>GUMMEI</name>
+            <type>BINARY</type>
+            <description>The GUMMEI of the released MME</description>
+            <numberofbytes>7</numberofbytes>
+            <comment>See 3GPP 36.413 for value range</comment>
+        </parametertype>
+        <parametertype>
+            <name>RSRP</name>
+            <type>UINT</type>
+            <description>Reported RSRP of a cell</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>127</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RSRQ</name>
+            <type>UINT</type>
+            <description>Reported RSRQ of a cell</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>127</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HO_OUT_PREP_ERAB_FAIL_BITMAP</name>
+            <type>UINT</type>
+            <description>Bitmap pointing out UE ERAB Ids that failed to be
+                prepared in target cell. 0..15.
+                (LSB) Bit position 0=ERAB Id 0, position 1=ERAB Id 1 etc. See X2 3GPP
+                36.423</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32767</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>ERAB_BITMAP</name>
+            <type>UINT</type>
+            <description>Bitmap pointing out UE ERAB Ids from the request. 0..15.
+                (LSB) Bit position 0=ERAB Id 0,
+                position 1=ERAB Id 1 etc. See X2 3GPP 36.423</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32767</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MCC</name>
+            <type>IBCD</type>
+            <description>Mobile Country Code. The MCC identifies uniquely the
+                country of domicile of the mobile subscriber</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1023</high>
+            </range>
+        </parametertype>
+        
+        <parametertype>
+            <name>ECI</name>
+            <type>UINT</type>
+            <description>E-UTRAN Cell Identity. Used to identify cells within a
+                PLMN. </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>1</low>
+                <high>268435455</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MMEGI</name>
+            <type>UINT</type>
+            <description>MME Group ID.</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>32768</low>
+                <high>65535</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>BEARER_ID</name>
+            <type>UINT</type>
+            <description>The EPS Bearer ID identifies one of several bearers in a
+                bearer setup list</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>5</low>
+                <high>15</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>BEARER_QCI</name>
+            <type>UINT</type>
+            <description>Provides information on a QoS class identifier for each
+                bearer in a bearer setup list</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>255</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>BEARER_CAUSE</name>
+            <type>UINT</type>
+            <description>Provides information on "Reasons for failure" for each
+                bearer in a bearer setup list</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1023</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>GBR_UPLINK</name>
+            <type>UINT</type>
+            <description>Provides Guaranteed Bit Rate Uplink (kbps) for each GBR bearer in a bearer setup list</description>
+            <numberofbytes>3</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>GBR_DOWNLINK</name>
+            <type>UINT</type>
+            <description>Provides Guaranteed Bit Rate Downlink (kbps) for each GBR bearer in a bearer setup list</description>
+            <numberofbytes>3</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+       <!--  <parametertype>
+            <name>IPV4</name>
+            <type>STRING</type>
+            <description>IP address V4</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype> -->
+
+        <parametertype>
+            <name>IPV6</name>
+            <type>STRING</type>
+            <description>IP address V6</description>
+            <numberofbytes>16</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>LOG_MESSAGE</name>
+            <type>STRING</type>
+            <description>A message indivating a log event</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>MODEL</name>
+            <type>STRING</type>
+            <description>UE MODEL</description>
+            <numberofbytes>64</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>VENDOR</name>
+            <type>STRING</type>
+            <description>UE_VENDOR</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>BEARERS_DEFAULT_BEARER_ID</name>
+            <type>UINT</type>
+            <description>A message indivating a log event</description>
+            <numberofbytes>1</numberofbytes>
+        </parametertype>
+
+        <parametertype>
+            <name>MME_PDN_INFO_DEFAULT_BEARER_ID</name>
+            <type>STRING</type>
+            <description>A message indivating a log event</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>PAGING_ATTEMPTS</name>
+            <type>UINT</type>
+            <description>Counting the number of paging attempts. This information
+                may be used for identify if a Service Request procedure is UE- or
+                Network initiated.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>7</high>
+            </range>
+        </parametertype>
+
+      
+        <parametertype>
+            <name>VOL_THP_UL</name>
+            <type>DOUBLE</type>
+            <description>Total DRB volume in UL for PDCP SDUs</description>
+            <numberofbytes>8</numberofbytes>
+            <usevalid>Yes</usevalid>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+            <resolution>1</resolution>
+            <unit>bytes</unit>
+        </parametertype>
+        <parametertype>
+            <name>VOL_THP_DL</name>
+            <type>DOUBLE</type>
+            <description>Number of transmitted bytes (PDCP level) used for throughput calculation in the downlink (truncated with the last TTIs).</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+       
+        <parametertype>
+            <name>VOL_TOTAL_DL</name>
+            <type>DOUBLE</type>
+            <description>VOL_THP_DL + Number of bytes transmitted (PDCP level) in the last TTIs in the downlink.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TIME_THP_UL</name>
+            <type>DOUBLE</type>
+            <description>Number of ms used for the throughput calculation in uplink.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TIME_THP_DL</name>
+            <type>DOUBLE</type>
+            <description>Number of ms used for the throughput calculation in downlink.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>THP_AVE_UL</name>
+            <type>DOUBLE</type>
+            <description>Average throughput in the uplink calculated over the session length.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>THP_AVE_DL</name>
+            <type>DOUBLE</type>
+            <description>Average throughput in the downlink calculated over the session length.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>THP_DETAILED_UL</name>
+            <type>DOUBLE</type>
+            <description>Set of 1.28 sec throughput samples in the uplink during the session length.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>THP_DETAILED_DL</name>
+            <type>DOUBLE</type>
+            <description>Set of 1.28 sec throughput samples in the downlink during the session length.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SAMPLES_UL</name>
+            <type>UINT</type>
+            <description>Number of 1.28 sec throughput data samples reported in the uplink (i.e., with non-zero data volume).</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SAMPLES_DL</name>
+            <type>UINT</type>
+            <description>Number of 1.28 sec throughput data samples reported in the downlink (i.e., with non-zero data volume).</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>LATENCY_DL</name>
+            <type>DOUBLE</type>
+            <description>DL latency measure. The time is between reception of a PDCP SDU  untill the first succesful transmission of a MAC SDU have been transmitted.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>DL_RLC_DELAY</name>
+            <type>DOUBLE</type>
+            <description>Downlink delay measure in the RLC layer. One sample per RLC SDU sent to MAC. The time for each sample is between reception of a packet (PDCP SDU) until the packet is sent to the MAC layer entity for transmission on the air.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>DL_MAC_DELAY</name>
+            <type>DOUBLE</type>
+            <description>Downlink delay measure in the MAC layer. One sample per MAC SDU. The time for each sample is between reception of a packet RLC PDU until the packet is received by the UE or HARQ failure on this MAC SDU.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>DELAY_SAMPLES</name>
+            <type>UINT</type>
+            <description>Number of samples to be used in delay measure calculations</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>CQI_AVG</name>
+            <type>DOUBLE</type>
+            <description>Avg of  CQIs  reported by UE</description>
+            <numberofbytes>8</numberofbytes>
+            <usevalid>Yes</usevalid>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+            <resolution>1</resolution>
+            <unit>bytes</unit>
+        </parametertype>
+        <parametertype>
+            <name>SCHED_RESTRICT_UE_CAT_UL</name>
+            <type>UINT</type>
+            <description>The sum of the contributions from each UE of the number of ms where respective UE is limited in the DL direction by its UE capability.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SCHED_RESTRICT_UE_CAT_DL</name>
+            <type>UINT</type>
+            <description>The sum of the contributions from each UE of the number of ms where respective UE is limited in the UL direction by its UE capability.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SCHED_ACTIVITY_UE_UL</name>
+            <type>UINT</type>
+            <description>The sum of the contributions from each UE in the cell of the number of ms where SRB/DRB data has been scheduled in the UL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SCHED_ACTIVITY_UE_DL</name>
+            <type>UINT</type>
+            <description>The sum of the contributions from each UE in the cell of the number of ms where SRB/DRB data has been scheduled in the DL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_TR_DL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs transmitted DL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_REC_DL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs received DL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_LOST_HO_DL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs lost due to handover, DL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_LOST_PELR_DL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs lost due to Traffic Management, DL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+
+        <parametertype>
+            <name>PACKET_REC_UL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs received, UL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_LOST_UL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs lost, UL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_LOST_PERL_UU_DL</name>
+            <type>UINT</type>
+            <description>Number of PDCP SDUs lost, UL.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RLC_ACK_DL</name>
+            <type>UINT</type>
+            <description>The total number of successful RLC PDU transmissions (ACKs) in the downlink direction.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RLC_NACK_DL</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful RLC PDU and RLC PDU segment transmissions (NACKs) in the downlink direction.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RLC_ACK_UL</name>
+            <type>UINT</type>
+            <description>The total number of successful RLC PDU transmissions (ACKs) in the uplink direction.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RLC_NACK_UL</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful RLC PDU and RLC PDU segment transmissions (NACKs) in the uplink direction.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_DL_ACK_QPSK</name>
+            <type>UINT</type>
+            <description>The total number of successful HARQ transmissions in the downlink direction using a QPSK modulation. Successful  is based on the HARQ ACK from the UE.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_DL_NACK_QPSK</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful HARQ transmissions in the downlink direction using a QPSK modulation. Failure is based on the HARQ NACK from the UE.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_UL_SUCC_QPSK</name>
+            <type>UINT</type>
+            <description>The total number of successful HARQ transmissions in the uplink direction using a QPSK modulation. Successful is based on the CRC check, not based on if RBS sends HARQ ACK (RBS can use the ACK even if the transport block was not successfully decoded in a way to control the HARQ)</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_UL_FAIL_QPSK</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful HARQ transmissions in the uplink direction using a QPSK modulation. Failure is based on the CRC check (which will result in an NACK).</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_DL_ACK_16QAM</name>
+            <type>UINT</type>
+            <description>The total number of successful HARQ transmissions in the downlink direction using a 16QAM modulation. Successful  is based on the HARQ ACK from the UE.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_DL_NACK_16QAM</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful HARQ transmissions in the downlink direction using a 16QAM modulation. Failure is based on the HARQ NACK from the UE.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_UL_SUCC_16QAM</name>
+            <type>UINT</type>
+            <description>The total number of successful HARQ transmissions in the uplink direction using a 16QAM modulation. Successful is based on the CRC check, not based on if RBS sends HARQ ACK (RBS can use the ACK even if the transport block was not successfully decoded in a way to control the HARQ)</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_UL_FAIL_16QAM</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful HARQ transmissions  in the uplink direction using a 16QAM modulation. Failure is based on the CRC check (which will result in an NACK).</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_DL_ACK_64QAM</name>
+            <type>UINT</type>
+            <description>The total number of successful HARQ transmissions in the downlink direction using a 64QAM modulation. Successful  is based on the HARQ ACK from the UE.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HARQ_DL_NACK_64QAM</name>
+            <type>UINT</type>
+            <description>The total number of unsuccessful HARQ transmissions  in the downlink direction using a 64QAM modulation. Failure is based on the HARQ NACK from the UE.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MAC_DTX_UL_QPSK</name>
+            <type>UINT</type>
+            <description>The total number of occasions when an uplink grant was meant for HARQ transmission in the uplink direction with QPSK, where DTX is considered the reason for no reception of HARQ in uplink in the eNB.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MAC_DTX_DL_QPSK</name>
+            <type>UINT</type>
+            <description>The total number of occasions when an downlink HARQ feedback was not received from an UE for a Transport Block with QPSK and DTX is considered the reason.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MAC_DTX_DL_16QAM</name>
+            <type>UINT</type>
+            <description>The total number of occasions when an uplink grant was meant for HARQ transmission in the uplink direction with 16QAM, where DTX is considered the reason for no reception of HARQ in uplink in the eNB.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MAC_DTX_UL_16QAM</name>
+            <type>UINT</type>
+            <description>The total number of occasions when an downlink HARQ feedback was not received from an UE for a Transport Block with 16QAM and DTX is considered the reason.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>MAC_DTX_DL_64QAM</name>
+            <type>UINT</type>
+            <description>The total number of occasions when an uplink grant was meant for HARQ transmission in the uplink direction with 64QAM where DTX is considered the reason for no reception of HARQ in uplink in the eNB.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RADIOTHP_VOL_DL</name>
+            <type>UINT</type>
+            <description>The total successfully transferred data volume on MAC level in the downlink. This counter includes possible padding bits.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RADIOTHP_RES_DL</name>
+            <type>UINT</type>
+            <description>The total amount of physical resources used for transmission in the downlink. Both successful and unsuccessful transmissions are counted.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RADIO_VOL_UL</name>
+            <type>UINT</type>
+            <description>The total successfully transferred data volume on MAC level in the uplink. This counter includes possible padding bits.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RADIOTHP_RES_UL</name>
+            <type>UINT</type>
+            <description>The total amount of physical resources used for transmission in the uplink. Both successful and unsuccessful transmissions are counted.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>CQI_MED</name>
+            <type>UINT</type>
+            <description>Set of CQI median values during the session length.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>CH_RANK_REP</name>
+            <type>UINT</type>
+            <description>Number of instances of channel rank=1,2 reported (in spatial multiplexing mode), sum of the corresponding 1.28 sec counters over the session length.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TX_MODE</name>
+            <type>UINT</type>
+            <description>Number of instances of tx mode=0,1,2,3,4 used, sum of the corresponding 1.28 sec counters over the session length.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+      
+
+        <parametertype>
+            <name>POWER_RESTRICT</name>
+            <type>UINT</type>
+            <description>The number of Transport Blocks on MAC level scheduled in uplink where the UE was considered to be power limited.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>POWER_NO_RESTRICT</name>
+            <type>UINT</type>
+            <description>The number of Transport Blocks on MAC level scheduled in uplink where the UE was NOT considered to be power limited.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RSRP_AVG</name>
+            <type>DOUBLE</type>
+            <description>Average of RSRP measurements during the aggregation period.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RSRQ_AVG</name>
+            <type>DOUBLE</type>
+            <description>Average of RSRQ measurements during the aggregation period.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RSRP_DETAILED</name>
+            <type>DOUBLE</type>
+            <description>List of RSRP measurements during the aggregation period.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>EVENT_TIME_REL</name>
+            <type>DOUBLE</type>
+            <description>List of RSRP measurements during the aggregation period.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>100000000000</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>RSRQ_DETAILED</name>
+            <type>DOUBLE</type>
+            <description>List of RSRQ measurements during the aggregation period.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>NUM_BEARERS</name>
+            <type>UINT</type>
+            <description>number of radio bearers</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RB_BYTE_TYPE</name>
+            <type>UINT</type>
+            <description>bearer type</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>32</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RB</name>
+            <type>UINT</type>
+            <description>bearer info </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+
+        <parametertype>
+            <name>PER_RB</name>
+            <type>DOUBLE</type>
+            <description>Radio Bearer info</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>PDCP_ACKVOL_DL_PER_RB</name>
+            <type>UINT</type>
+            <description>bearer info </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PDCP_TRANSVOL_DL_PER_RB</name>
+            <type>UINT</type>
+            <description>DRB volume that has been transmitted in the downlink direction in the PDCP layer.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>PDCP_RECVOL_UL_PER_RB</name>
+            <type>UINT</type>
+            <description>bearer info </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>LATENCY_DL_PER_RB</name>
+            <type>DOUBLE</type>
+            <description>Radio Bearer info</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RLC_DELAY_DL_PER_RB</name>
+            <type>DOUBLE</type>
+            <description>Radio Bearer info</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10000000</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>LATENCY_DL_SAMPLES_PER_RB</name>
+            <type>UINT</type>
+            <description>Number of samples to be used in DL latency measure calculations</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RLC_DELAY_DL_SAMPLES_PER_RB</name>
+            <type>UINT</type>
+            <description>bearer info </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>UE_MEAS_TS</name>
+            <type>LONG</type>
+            <description>List of timestamps of the RSRP/RSRQ measurements.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TIMESTAMP_MINUTE</name>
+            <type>UINT</type>
+            <description>time in minutes</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>60</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>APN</name>
+            <type>STRING</type>
+            <description>Access Point Name</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+
+        <parametertype>
+            <name>DATA_RECV</name>
+            <type>UINT</type>
+            <description>DATA received</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>10</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>DIR</name>
+            <type>UINT</type>
+            <description>time in minutes</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>99999999999999999</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RELEASE_CAUSE</name>
+            <type>ENUM</type>
+            <description>Release cause</description>
+            <numberofbytes>1</numberofbytes>
+            <usevalid>Yes</usevalid>
+            <range>
+                <low>0</low>
+                <high>42</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_UNSPECIFIED" value="0" />
+                <enum internal="EVENT_VALUE_NORMAL_RELEASE" value="1" />
+                <enum internal="EVENT_VALUE_AUTHENTICATION_FAILURE" value="2" />
+                <enum internal="EVENT_VALUE_DETACH" value="3" />
+                <enum internal="EVENT_VALUE_LOAD_BALANCING_TAU_REQUIRED" value="4" />
+                <enum internal="EVENT_VALUE_CS_FALLBACK_TRIGGERED" value="5" />
+                <enum internal="EVENT_VALUE_UE_NOT_AVAILABLE_FOR_PS_SERVICES"
+                      value="6" />
+                <enum internal="EVENT_VALUE_HANDOVER_CANCELLED" value="7" />
+                <enum internal="EVENT_VALUE_SUCCESSFUL_HANDOVER" value="8" />
+                <enum internal="EVENT_VALUE_RELEASE_DUE_TO_EUTRAN_GENERATED_REASON"
+                      value="9" />
+                <enum internal="EVENT_VALUE_USER_INACTIVITY" value="10" />
+                <enum internal="EVENT_VALUE_RADIO_CONNECTION_WITH_UE_LOST"
+                      value="11" />
+                <enum internal="EVENT_VALUE_RADIO_RESOURCES_NOT_AVAILABLE"
+                      value="12" />
+                <enum internal="EVENT_VALUE_FAILURE_IN_THE_RADIO_INTERFACE_PROCEDURE"
+                      value="13" />
+                <enum internal="EVENT_VALUE_TRANSPORT_RESOURCES_UNAVAILABLE"
+                      value="14" />
+                <enum internal="EVENT_VALUE_HANDOVER_TRIGGERED" value="15" />
+                <enum internal="EVENT_VALUE_PARTIAL_HANDOVER" value="16" />
+                <enum
+                        internal="EVENT_VALUE_HANDOVER_FAILURE_IN_TARGET_EPC_ENB_OR_TARGET_SYSTEM"
+                        value="17" />
+                <enum internal="EVENT_VALUE_HANDOVER_TARGET_NOT_ALLOWED" value="18" />
+                <enum internal="EVENT_VALUE_TS1RELOC_OVERALL_EXPIRY" value="19" />
+                <enum internal="EVENT_VALUE_TS1RELOC_PREP_EXPIRY" value="20" />
+                <enum internal="EVENT_VALUE_UNKNOWN_TARGET_ID" value="21" />
+                <enum internal="EVENT_VALUE_NO_RADIO_RESOURCES_AVAILABLE_IN_TARGET_CELL"
+                      value="22" />
+                <enum internal="EVENT_VALUE_UNKNOWN_OR_ALREADY_ALLOCATED_MME_UE_S1AP_ID"
+                      value="23" />
+                <enum internal="EVENT_VALUE_UNKNOWN_OR_ALREADY_ALLOCATED_ENB_UE_S1AP_ID"
+                      value="24" />
+                <enum internal="EVENT_VALUE_UNKNOWN_OR_INCONSISTENT_PAIR_OF_UE_S1AP_ID"
+                      value="25" />
+                <enum internal="EVENT_VALUE_HANDOVER_DESIRABLE_FOR_RADIO_REASONS"
+                      value="26" />
+                <enum internal="EVENT_VALUE_TIME_CRITICAL_HANDOVER" value="27" />
+                <enum internal="EVENT_VALUE_RESOURCE_OPTIMISATION_HANDOVER"
+                      value="28" />
+                <enum internal="EVENT_VALUE_REDUCE_LOAD_IN_SERVING_CELL" value="29" />
+                <enum internal="EVENT_VALUE_HARQ_TIMEOUT" value="30" />
+                <enum internal="EVENT_VALUE_CELL_DISABLED_MANUAL" value="31" />
+                <enum internal="EVENT_VALUE_S1_INTERFACE_DOWN" value="32" />
+                <enum internal="EVENT_VALUE_TIME_ALIGNMENT_TIMER_EXPIRY" value="33" />
+                <enum internal="EVENT_VALUE_BEST_CELL_EVAL_RELEASE" value="34" />
+                <enum internal="EVENT_VALUE_BEST_CELL_EVAL_RELEASE_FAST" value="35" />
+                <enum internal="EVENT_VALUE_RLC_FAILURE_SRB" value="36" />
+                <enum internal="EVENT_VALUE_RLC_FAILURE_DRB" value="37" />
+                <enum internal="EVENT_VALUE_BAD_COV_EVAL_PRIM" value="38" />
+                <enum internal="EVENT_VALUE_BAD_COV_EVAL_SEC" value="39" />
+                <enum internal="EVENT_VALUE_CELL_DISABLED_AUTO" value="40" />
+                <enum internal="EVENT_VALUE_S1_RESET" value="41" />
+                <enum internal="EVENT_VALUE_TX2RELOC_OVERALL_EXPIRY" value="42" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>TRIGGERING_NODE</name>
+            <type>ENUM</type>
+            <description>Triggering node</description>
+            <numberofbytes>1</numberofbytes>
+            <usevalid>Yes</usevalid>
+            <range>
+                <low>0</low>
+                <high>1</high>
+            </range>
+            <enumeration>
+                <enum internal="EVENT_VALUE_ENB" value="0" />
+                <enum internal="EVENT_VALUE_MME" value="1" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>DETACH_TRIGGER</name>
+            <type>ENUM</type>
+            <description>Origin of Detach initiation</description>
+            <numberofbytes>1</numberofbytes>
+            <enumeration>
+                <enum internal="MS" value="0">MS</enum>
+                <enum internal="SGSN" value="1">SGSN</enum>
+                <enum internal="HLR" value="2">HLR</enum>
+                <enum internal="MSC" value="3">MSC</enum>
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>DETACH_TYPE</name>
+            <type>ENUM</type>
+            <description>EPS Detach Type</description>
+            <numberofbytes>1</numberofbytes>
+            <enumeration>
+                <enum internal="EPS_DETACH" value="0">EPS detach</enum>
+                <enum internal="IMSI_DETACH" value="1">IMSI detach</enum>
+                <enum internal="COMBINED_DETACH" value="2">Combined eps imsi detach
+                </enum>
+                <enum internal="REATTACH_REQUIRED" value="3">Re-attach required
+                </enum>
+                <enum internal="REATTACH_NOT_REQUIRED" value="4">Re-attach not
+                    required</enum>
+                <enum internal="IMPLICIT_DETACH" value="5">Implicit detach by MME
+                </enum>
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>DECONNECT_PDN_TYPE</name>
+            <type>ENUM</type>
+            <description>PDN Deconnection type</description>
+            <numberofbytes>1</numberofbytes>
+            <enumeration>
+                <enum internal="UE_INITIATED" value="0">UE initiated</enum>
+                <enum internal="MME_INITIATED" value="1">MME initiated</enum>
+                <enum internal="SGW_INITIATED" value="2">SGW initiated</enum>
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>ATTACH_TYPE</name>
+            <type>UINT</type>
+            <description>UE Attch type </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>SCANNER_ID</name>
+            <type>UINT</type>
+            <description>16 scanners for UE Trace and 6 scanners for Cell Trace. The scanner ID consists of a sequence of 22 bits, each bit corresponds to a particular scanner ID. See &quot;File Format Description&quot; 1/198 18-HRB 105 500</description>
+            <numberofbytes>3</numberofbytes>
+            <usevalid>No</usevalid>
+            <range>
+                <low>0</low>
+                <high>8388607</high>
+            </range>
+            <resolution>1</resolution>
+            <comment>16 scanners for UE Trace and 6 scanners for Cell Trace. The scanner ID field is consists of sequence of 22 bits, each bit corresponding to a particular scanner ID. See Ref [1] for an enhanced description.</comment>
+        </parametertype>
+
+        <parametertype>
+            <name>TEID</name>
+            <type>UINT</type>
+            <description>Tunnel Endpoint Identifier</description>
+            <numberofbytes>3</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>16777215</high>
+            </range>
+            <comment>From 3GPP TS 29.060 (GTP V1) and 3GPP TS 29.274 (GTP V2)</comment>
+        </parametertype>
+
+        <parametertype>
+            <name>SESSION_DURATION</name>
+            <type>FLOAT</type>
+            <description>The duration of a session in seconds</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>IPV4</name>
+            <type>IPADDRESS</type>
+            <description>IP address V4</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>IPV4STRING</name>
+            <type>STRING</type>
+            <description>IP address V4</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>PORT</name>
+            <type>UINT</type>
+            <description>A TCP or UDP port</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65535</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TRANSMISSION_DIRECTION</name>
+            <type>ENUM</type>
+            <description>The direction in which a packet was travelling</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1</high>
+            </range>
+            <enumeration>
+                <enum internal="UE_TO_NETWORK" value="0" />
+                <enum internal="NETWORK_TO_UE" value="1" />
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>TOTAL_DATA_BYTES</name>
+            <type>UINT</type>
+            <description>Total number of bytes transmitted in a session</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>DATA_BYTES</name>
+            <type>UINT</type>
+            <description>The amount of bytes transmitted</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKETS</name>
+            <type>UINT</type>
+            <description>The amount of packets transmitted</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>THROUGHPUT</name>
+            <type>UINT</type>
+            <description>The average throughput of all tcp flows for the 
+                user in the correlation interval.Throughput values are 
+                expressed as Kbits/Second long values.
+            </description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ALONE_RATIO</name>
+            <type>FLOAT</type>
+            <description>The ratio of the traffic on this session to the total traffic</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>RWIN_SIZE</name>
+            <type>UINT</type>
+            <description>Receiver window size [bytes]</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>ROUND_TRIP_TIME</name>
+            <type>FLOAT</type>
+            <description> Partial RTT upon connection setup (-1 if not measured [SYN or SYN ACK is retransmitted]) [s]</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_SIZE</name>
+            <type>UINT</type>
+            <description>IP data packet size [bytes]</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PACKET_LOSS_RATIO</name>
+            <type>FLOAT</type>
+            <description>The ratio of packets lost to the total packets carried</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>CONTENT_TYPE</name>
+            <type>STRING</type>
+            <description>The type of content being carried in the session</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>HOST</name>
+            <type>STRING</type>
+            <description>The network host with which this session is being carried out</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>URI</name>
+            <type>STRING</type>
+            <description>The URI of the network host with which this session is being carried out</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>REBUFFERING_TIME</name>
+            <type>FLOAT</type>
+            <description>An amount of time spent with rebuffering during a FLV stream</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>REBUFFERING_NUM</name>
+            <type>UINT</type>
+            <description>The total number of rebuffering events during the FLV stream</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65536</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TERMINATION_CAUSE</name>
+            <type>STRING</type>
+            <description>The reason this session terminated</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>CODEC</name>
+            <type>STRING</type>
+            <description>The type of codec used on this session</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>AUDIO_RATE</name>
+            <type>FLOAT</type>
+            <description>The audio rate in KHz</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>AUDIO_TYPE</name>
+            <type>STRING</type>
+            <description>The type of audio used on this session</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>QOE_NUM</name>
+            <type>UINT</type>
+            <description>The number of QoE measurements in a session</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65536</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>QOE</name>
+            <type>DOUBLE</type>
+            <description>The estimated QoE value on this session</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>QOE_TIME</name>
+            <type>FLOAT</type>
+            <description>The relative start time in a session for which a QoE value was calculated</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>QOE_DURATION</name>
+            <type>FLOAT</type>
+            <description>The duration in a session for which a QoE value was calculated</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>QOE_SEQUENCE_NUM</name>
+            <type>UINT</type>
+            <description>The sequence number of a QoE measurement in a session</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65536</high>
+            </range>
+        </parametertype>
+
+        <parametertype>
+            <name>RAT</name>
+            <type>ENUM</type>
+            <description>Radio Access Type, either GSM, WCDMA or LTE</description>
+            <numberofbytes>1</numberofbytes>
+            <comment>From SGEH 2/1551-CRA 250 58</comment>
+            <enumeration>
+                <enum internal="GSM" value="0">GSM</enum>
+                <enum internal="WCDMA" value="1">WCDMA</enum>
+                <enum internal="LTE" value="2">LTE</enum>
+            </enumeration>
+        </parametertype>
+
+        <parametertype>
+            <name>PROTOCOL</name>
+            <type>STRING</type>
+            <description>The type of protocol detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>FUNCTION</name>
+            <type>STRING</type>
+            <description>The type of function detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ENCAPSULATION</name>
+            <type>STRING</type>
+            <description>The type of encapsulation detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ENCRYPTION</name>
+            <type>STRING</type>
+            <description>The type of encryption detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ENCRYPTION</name>
+            <type>STRING</type>
+            <description>The type of encryption detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>SERVICE_PROVIDER</name>
+            <type>STRING</type>
+            <description>The service provider detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>CLIENT</name>
+            <type>STRING</type>
+            <description>The type of client detected on a sesison</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+       
+        <parametertype>
+            <name>MNC</name>
+            <type>IBCD</type>
+            <description>Mobile Network Code. The MNC identifies the home PLMN of
+                the mobile subscriber.</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>1023</high>
+            </range>
+            <comment>From SGEH 2/1551-CRA 250 58</comment>
+        </parametertype>
+        <parametertype>
+            <name>LAC</name>
+            <type>UINT</type>
+            <description>Location Area Code</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65535</high>
+            </range>
+            <comment>From SGEH 2/1551-CRA 250 58</comment>
+        </parametertype>
+        <parametertype>
+            <name>RAC</name>
+            <type>UINT</type>
+            <description>Routing Area Code</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>255</high>
+            </range>
+            <comment>From SGEH 2/1551-CRA 250 58</comment>
+        </parametertype>
+        <parametertype>
+            <name>CI</name>
+            <type>UINT</type>
+            <description>Cell Identity</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>1</low>
+                <high>65535</high>
+            </range>
+            <comment>From SGEH 2/1551-CRA 250 58</comment>
+        </parametertype>
+        <parametertype>
+            <name>SAC</name>
+            <type>UINT</type>
+            <description>Service Area Code</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65535</high>
+            </range>
+            <comment>From SGEH 2/1551-CRA 250 58</comment>
+        </parametertype>
+        <parametertype>
+            <name>RNC_ID</name>
+            <type>UINT</type>
+            <description>RNC identity used in the radio network</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4095</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>RNC</name>
+            <type>UINT</type>
+            <description>The RNC ID</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>RBS</name>
+            <type>UINT</type>
+            <description>The RBS ID</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+
+        <parametertype>
+            <name>DOUBLE_TYPE</name>
+            <type>DOUBLE</type>
+            <description>Total DRB volume in UL for PDCP SDUs</description>
+            <numberofbytes>8</numberofbytes>
+            <usevalid>Yes</usevalid>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+            <resolution>1</resolution>
+            <unit>bytes</unit>
+        </parametertype>
+        <parametertype>
+            <name>TRANSFERRED_PDP</name>
+            <type>DOUBLE</type>
+            <description>Number of transferred PDP Contexts</description>
+            <numberofbytes>12</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>11</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>FLOAT_TYPE</name>
+            <type>FLOAT</type>
+            <description> float type data</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>DROPPED_PDP</name>
+            <type>DOUBLE</type>
+            <description>Number of dropped PDP Contexts</description>
+            <numberofbytes>12</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>11</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>NSAPI</name>
+            <type>UINT</type>
+            <description>Network Service Access Point Identifier</description>
+            <numberofbytes>1</numberofbytes>
+            <range>
+                <low>5</low>
+                <high>15</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TEXT</name>
+            <type>STRING</type>
+            <description>The name of an event used in a correlation</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>LATITUDE</name>
+            <type>DOUBLE</type>
+            <description>The Latitude Value</description>
+            <numberofbytes>12</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>LONGITUDE</name>
+            <type>DOUBLE</type>
+            <description>The Longitude Value</description>
+            <numberofbytes>12</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>BEAM_DIRECTION</name>
+            <type>UINT</type>
+            <description>The Beam Direction Value</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>SCRAMBLING_CODE</name>
+            <type>UINT</type>
+            <description>The primaryScramblingCode</description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>CELL_RANGE</name>
+            <type>UINT</type>
+            <description>The Cell Range</description>
+            <numberofbytes>4</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ATTACH_TYPE</name>
+            <type>ENUM</type>
+            <description>GPRS attach type, either GPRS attach, GPRS attach while IMSI is attached, or Combined GPRS IMSI attach</description>
+            <numberofbytes>1</numberofbytes>
+            <enumeration>
+                <enum internal="GPRS_ATTACH" value="0">GPRS Attach</enum>
+                <enum internal="GPRS_ATTACH_WHILE_IMSI_ATTACHED" value="1">GPRS Attach while IMSI Attached</enum>
+                <enum internal="COMBINED_GPRS_IMSI_ATTACH" value="2">IMSI Attach</enum>
+            </enumeration>
+        </parametertype>
+        <parametertype>
+            <name>PTMSI</name>
+            <type>UINT</type>
+            <description>Packet-Temporary Mobile Subscriber Identity</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>HLR</name>
+            <type>TBCD</type>
+            <description>Home Location Register address</description>
+            <detaileddescription>9 octets, TBCD (Telephony Binary Coded Decimal)
+                NULL-padding (x00) for unused characters upto a total length of 18
+                octets.
+                No HLR is indicated with (xFF).
+            </detaileddescription>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>DECODED_CAUSE_CODE</name>
+            <type>STRING</type>
+            <description>Decoded text value of the cause code</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>MSISDN</name>
+            <type>TBCD</type>
+            <description>Mobile Subscriber Integrated Services Digital Network Number
+            </description>
+            <numberofbytes>8</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>ENUM_STRING</name>
+            <type>STRING</type>
+            <description>String value for Enum member</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>HOMEZONE_IDENTITY</name>
+            <type>BYTEARRAY</type>
+            <description>?????????????tbd ?????????????????? </description>
+            <lengthbits>5</lengthbits>
+            <validlength>
+                <low>0</low>
+                <high>31</high>
+            </validlength>
+        </parametertype>
+        <parametertype>
+            <name>RAU_TYPE</name>
+            <type>ENUM</type>
+            <description>The type if Routing Area Update</description>
+            <numberofbytes>2</numberofbytes>
+            <enumeration>
+                <enum internal="RAU" value="0">RAU</enum>
+                <enum internal="ISRAU" value="1">ISRAU</enum>
+            </enumeration>
+        </parametertype>
+
+        <parametertype>
+            <name>WEB_ACCESSIBILITY</name>
+            <type>FLOAT</type>
+            <description>This details the precentage of web pages which were accessed successfully:
+                Num Successful Web Access/Num Web Access attempts
+            </description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>WEB_RETAINABILITY</name>
+            <type>FLOAT</type>
+            <description>This details the precentage of web pages which were fully downloaded once accessed:
+                Num Successful Data Transfers/Num Started Data Transferred</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>WEB_INTEGRITY_ACCESS_TIME</name>
+            <type>DOUBLE</type>
+            <description>The WEB Integrity Access Time.  The time period needed to establish a TCP/IP connection to the service:
+                AccessTime/Num Sessions</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>2147483647</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PDN_CAUSE</name>
+            <type>STRING</type>
+            <description>The PDN Cause</description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>QCI_LIST</name>
+            <type>STRING</type>
+            <description>Bearer QCI. New entry each time the QCI changes.  Format: [ {TIMESTAMP: QCI} …} ]
+            </description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>BEARER_ACTIVATION_LIST</name>
+            <type>STRING</type>
+            <description>Every Attach and Service Request procedure stored in text format. 
+                            Format: [ {TIMESTAMP: TYPE: PAGING: RESULT} …} ]
+                         The PAGING parameter indicates if the SERVICE_REQUEST was initiated by the network (TRUE) or the UE (FALSE)
+            </description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>UE_CONTEXT_RELEASE_LIST</name>
+            <type>STRING</type>
+            <description>Every UeContextRelease procedure information stored in text format. 
+                            Format: [ {TIMESTAMP: TriggerNode: S1ReleaseCause: ReleaseCause} … ]
+            </description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>RSRP_RSRQ_LIST</name>
+            <type>STRING</type>
+            <description>The actual RSRP measurement values in dBm from the first cell in the report. 
+            See 3GPP 36.331. This values are stored in following format: 
+            [ {time-1:rsrp-1:rsrq-1} {time-2:rsrp-2:rsrq-2} {time-3:rsrp-3:rsrq-3} ]
+            </description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>HO_LIST</name>
+            <type>STRING</type>
+            <description>Every hand over procedure information stored in text format. Format: 
+            [ {TIMESTAMP: RESULT: TYPE: ENB_CAUSE_CODE: MME_CAUSE_CODE: MME_SUB_CAUSE_CODE} … ]
+            A new entry is stored for each attempted handover.  In cases where the handover 
+            failed all the cause codes are populated from the LTE_HANDOVER correlated event.
+            </description>
+            <numberofbytes>256</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>RSRP_MEDIAN</name>
+            <type>UINT</type>
+            <description>The RSRP measurement result the first cell in the report. See 3GPP 36.331. 
+            The RSRP values are classified into 3 different categories and those are 1(BEST),2(NEUTRAL), 3(POOR).
+            This classification is based on the algorithm defined below.                                            
+            RSRP > -75dBm(66) => 1 (BEST)
+            RSRP between -75dBm(65) and -95dBm(46) => 2 (NEUTRAL)
+            RSRP > -95dBm(45) => 3 (BAD)
+<!--        In the raw data the values are in the range of 0-97. Where:
+            ____________________________________________________
+            ReportedValue       Measured Quantity value     Unit
+            ====================================================
+            0                   RSRP < -140                 dBm
+            1                   -140 <= RSRP < -139         dBm
+            2                   -139 <= RSRP < -138         dBm
+            ...                 .....                       ...
+            45                  -94  <= RSRP < -95          dBm
+            46                  -95  <= RSRP < -94          dBm
+            ...                 .....                       ...
+            66                  -75  <= RSRP < -74          dBm
+            ...                 .....                       ...
+            96                  -45  <= RSRP < -44          dBm
+            97                  -44  <= RSRP                dBm
+            ____________________________________________________ -->
+            </description>
+            <numberofbytes>1</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>RSRQ_MEDIAN</name>
+            <type>UINT</type>
+            <description>The RSRQ measurement result the first cell in the report. See 3GPP 36.331. 
+            The RSRQ values are classified into 3 different categories and those are 1(BEST),2(NEUTRAL), 3(POOR).
+            This classification is based on the algorithm defined below.
+            RSRQ > -9dBm(22) => 1 (BEST)
+            RSRQ between -9dBm(21) and -12dBm(16) => 2 (NEUTRAL)
+            RSRQ > -12dBm(15) => 3 (BAD)
+     <!--   In the raw data the values are in the range of 0-34. Where:
+            ____________________________________________________
+            ReportedValue       Measured Quantity value     Unit
+            ====================================================
+            0                   RSRQ < -19.5                dBm
+            1                   -19.5<= RSRQ < -19          dBm
+            2                   -19  <= RSRQ < -18.5        dBm
+            ...                 .....                       ...
+            15                  -11.5<= RSRQ < -12          dBm
+            16                  -12  <= RSRQ < -11.5        dBm
+            ...                 .....                       ...
+            21                  -9.5<= RSRQ < -8            dBm
+            22                  -9  <= RSRQ < -8.5          dBm
+            
+            32                  -4  <= RSRQ < -3.5          dBm
+            33                  -3.5<= RSRQ < -3            dBm
+            34                  -3  <= RSRQ                 dBm
+            ____________________________________________________ -->
+            </description>
+            <numberofbytes>1</numberofbytes>
+        </parametertype>
+         <parametertype>
+            <name>CQI_REPORTED</name>
+            <type>STRING</type>
+            <description>Every CQI Reported value for the user stored in text format. Every CQI
+            reported in the INTERNAL_PER_RADIO_UE_MEASUREMENT periodic events are stored with the
+            following Format [ {CQI Report 1} {CQI Report 2} ... ]: 
+            Where each CQI Report is in the format:  { long: long: long: ... }
+            </description>
+            <numberofbytes>128</numberofbytes>
+        </parametertype>
+        <parametertype>
+            <name>TCP_RTT_TX_TO_RX</name>
+            <type>UINT</type>
+            <description>The Median Round Trip Time at microsecond precision observed on the
+                last acknowledged packet per flow on all the users connection.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TCP_RTT_AT_HS</name>
+            <type>UINT</type>
+            <description>The Median Round Trip Time at microsecond precision observed on the 
+                establishment (Hand Shake) of all connections for this user.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TCP_VOLUME</name>
+            <type>UINT</type>
+            <description>The total number of KiloBytes observed on all flows for the given user.</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>9223372036854775807</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TCP_UNIQUE_RETX_PKTS</name>
+            <type>UINT</type>
+            <description>The number of unique retransmitted packets.  The packets could be 
+                retransmitted for a number of reasons e.g. lost, corrupt, late response or 
+                received reject</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>9223372036854775807</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>TCP_UNIQUE_RETX_PKTS</name>
+            <type>UINT</type>
+            <description>The number of unique retransmitted packets.  The packets could be 
+                retransmitted for a number of reasons e.g. lost, corrupt, late response or 
+                received reject</description>
+            <numberofbytes>8</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>9223372036854775807</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>PROTOCOL_GROUP</name>
+            <type>UINT</type>
+            <description>The protocol group of a flow as determined by the classifier in use, see the
+                documentation of the classifier to interpret this parameter.</description>
+            <numberofbytes>2</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>65535</high>
+            </range>
+        </parametertype>
+        <parametertype>
+            <name>CLS_APPLICATION</name>
+            <type>UINT</type>
+            <description>The application of a flow as determined by the classifier in use, see the
+            documentation of the classifier to interpret this parameter.</description>
+            <numberofbytes>4</numberofbytes>
+            <range>
+                <low>0</low>
+                <high>4294967295</high>
+            </range>
+        </parametertype>
+    </parametertypes>
+
+    <structuretypes>
+        <structuretype>
+            <name>EVENTS</name>
+            <elements>
+                <param type="EVENT_NAME">EVENT_NAME</param>
+                <param type="EVENT_TIME_REL">TIME_REL</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>MILESTONES</name>
+            <elements>
+                <param type="MILESTONE_NAME">MILESTONE_NAME</param>
+                <param type="TIMESTAMP">MILESTONE_TIMESTAMP</param>
+            </elements>
+        </structuretype>
+
+        <structuretype>
+            <name>EVENT_TIMES_REL</name>
+            <elements>
+                <param type="EVENT_TIME_REL">EVENT_TIME_REL</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>THP_DETAILED_ULS</name>
+            <elements>
+                <param type="THP_DETAILED_UL">THP_DETAILED_UL</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>THP_DETAILED_DLS</name>
+            <elements>
+                <param type="THP_DETAILED_DL">THP_DETAILED_DL</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>CQI_MEDS</name>
+            <elements>
+                <param type="CQI_MED">CQI_REPORT</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>CH_RANK_REPS</name>
+            <elements>
+                <param type="CH_RANK_REP">RANK_REPS</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>TX_MODES</name>
+            <elements>
+                <param type="TX_MODE">MODE</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>DETAILEDS</name>
+            <elements>
+                <param type="RSRP_DETAILED">DETAILED</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>RSRQ_DETAILEDS</name>
+            <elements>
+                <param type="RSRQ_DETAILED">RSRQ_DETAILED</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>TSS</name>
+            <elements>
+                <param type="UE_MEAS_TS">TSS</param>
+            </elements>
+        </structuretype>
+        <!-- -This is need for radio bearer type -->
+        <structuretype>
+            <name>BEARER_IDS_BYTE_TYPE</name>
+            <elements>
+                <param type="RB_BYTE_TYPE">IDS</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>BEARER_TYPES_BYTE_TYPE</name>
+            <elements>
+                <param type="RB_BYTE_TYPE">TYPES</param>
+            </elements>
+        </structuretype>
+        <!-- TODO Bearer type is int, investigate possible size reduction of beared type/id into byte type  and make it generic -->
+        <structuretype>
+            <name>BEARER_IDS</name>
+            <elements>
+                <param type="RB">IDS</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>BEARER_TYPES</name>
+            <elements>
+                <param type="RB">TYPES</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>BEARER</name>
+            <elements>
+                <param type="BEARER_ID" usevalid="true">EPS_BEARER_ID</param>
+                <param type="BEARER_QCI">BEARER_QCI</param>
+                <param type="BEARER_CAUSE">BEARER_CAUSE</param>
+                <param type="BEARER_ID" usevalid="true">DEFAULT_BEARER_ID</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>HANDOVER_BEARER</name>
+            <elements>
+                <param type="BEARER_ID" usevalid="true">EPS_BEARER_ID</param>
+                <param type="BEARER_QCI">BEARER_QCI</param>
+                <param type="BEARER_CAUSE">BEARER_CAUSE</param>
+                <param type="BEARER_ID" usevalid="true">DEFAULT_BEARER_ID</param>
+                <param type="GBR_UPLINK"  optional="true">GBR_UL</param>
+                <param type="GBR_DOWNLINK"  optional="true">GBR_DL</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>QOE</name>
+            <elements>
+                <param type="QOE">QOE</param>
+                <param type="QOE_TIME">QOE_TIME</param>
+                <param type="QOE_DURATION">QOE_DURATION</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>CGI</name>
+            <elements>
+                <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="LAC">LAC</param>
+                <param type="CI">CI</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>SAI</name>
+            <elements>
+                <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="LAC">LAC</param>
+                <param type="SAC">SAC</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>RAI</name>
+            <elements>
+                <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="LAC">LAC</param>
+                <param type="RAC">RAC</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>LOCATION</name>
+            <elements>
+                <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="LAC">LAC</param>
+                <param type="RAC">RAC</param>
+                <param type="CI" usevalid="true">CI</param>
+                <param type="SAC" usevalid="true">SAC</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>OLD_LOCATION</name>
+            <elements>
+                <param type="MCC">OLD_MCC</param>
+                <param type="MNC">OLD_MNC</param>
+                <param type="LAC">OLD_LAC</param>
+                <param type="RAC">OLD_RAC</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>MSID</name>
+            <elements>
+                <param type="IMSI">IMSI</param>
+                <param type="PTMSI" usevalid="true">PTMSI</param>
+                <param type="IMEISV" usevalid="true">IMEISV</param>
+                <param type="MSISDN">MSISDN</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>IPADDRESS</name>
+            <elements>
+                <param type="IPV4" optional="true">IPV4</param>
+                <param type="IPV6" optional="true">IPV6</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>PDP_INFO</name>
+            <elements>
+                <param type="NSAPI">NSAPI</param>
+                <param type="IPV4">GGSN</param>
+                <struct type="IPADDRESS">MS_ADDRESS</struct>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>IMEI</name>
+            <elements>
+                <param type="UINT_8">TAC</param>
+                <param type="TEXT">MODEL</param>
+                <param type="TEXT">VENDOR</param>
+                <param type="TEXT">BAND</param>
+            </elements>
+        </structuretype>
+
+        <structuretype>
+            <!-- The WEB Integrity Download MOS (Mean Opinion Score) distribution.  After a successful Web Access Attempt, 
+					 this parameter describes the distribution satisfaction levels, concerning the time it takes to download 
+					 the enitre web page. Chapter 3.4.2 in the "S-KPI measurement definitions for Web Browsing" (EAB-11:054275, PA3)
+					 details that ideally this should be based on the size of web page downloaded.  However, a customer survey 
+					 is required to derive the thresholds for the different web page sizes. So, at the moment the web download
+					 size will be disregarded and only a single set of thresholds will be used.  -->
+            <name>WEB_INTEGRITY_MOS</name>
+            <elements>
+                <param type="UINT_8">1_POOR</param> 		<!--  >13 secs to load -->
+                <param type="UINT_8">2_FAIRLY_POOR</param> 	<!-- <=13 secs to load -->
+                <param type="UINT_8">3_ACCEPTABLE</param> 	<!-- <=10 secs to load -->
+                <param type="UINT_8">4_FAIRLY_GOOD</param> 	<!-- <= 7 secs to load -->
+                <param type="UINT_8">5_GOOD</param> 		<!-- <= 5 secs to load -->
+            </elements>
+        </structuretype>
+         
+        <structuretype>
+            <name>PDNS_PAA_IPV4</name>
+            <elements>
+                <param type="IPV4" usevalid="true">IP</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>PDNS_P_GW_IPV4</name>
+            <elements>
+                <param type="IPV4" usevalid="true">IP</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>BEARER_ARRAY</name>
+            <elements>
+                <param type="BEARER_QCI">QCI</param>
+                <param type="BEARER_ID">ID</param>
+                <param type="BEARER_CAUSE">CAUSE</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>BEARER_QCI_ARRAY</name>
+            <elements>
+                <param type="BEARER_QCI">QCI</param>
+            </elements>
+        </structuretype>
+        <structuretype>
+            <name>APPLICATIONS</name>
+            <elements>
+                <param type="CLS_APPLICATION">APPLICATION</param>
+            </elements>
+        </structuretype>
+        
+    </structuretypes>
+    <!-- Note: Events or parameters can be removed from parsing by adding the 
+		attribute "ignore" to the event or parameter definition. To ignore an event: 
+		<event ignore="true"> To ignore a parameter in an event: <param ignore="true"> -->
+    <events>
+        <event>
+            <name>X2_HANDOVER</name>
+            <id>19000</id>
+            <comment>This event is an aggregation of the events that happen in X2
+                handovers</comment>
+            <elements>
+                <param type="DURATION">DURATION</param>
+                <param type="TIMESTAMP">START_TIMESTAMP</param>
+                <param type="TIMESTAMP">END_TIMESTAMP</param>
+                <param type="IMSI">IMSI</param>
+                <param type="IMEISV">IMEISV</param>
+                <param type="IMEISV">IMEITAC</param>
+                <param type="HANDOVER_TYPE">HANDOVER_TYPE</param>
+                <param type="MME_HANDOVER_TYPE">MME_HO_TYPE</param>
+
+                <param type="EVENT_RESULT">RESULT</param>
+                <param type="EVENT_RESULT">ENB_RESULT</param>
+                <param type="EVENT_RESULT">MME_RESULT</param>
+                <param type="CAUSE_CODE">MME_CAUSE_CODE</param>
+                <param type="SUB_CAUSE_CODE">MME_SUB_CAUSE_CODE</param>
+                <param type="CAUSE_PROT_TYPE">MME_CAUSE_PROT_TYPE</param>
+
+
+                <param type="PROC_HO_PREP_OUT_ATTEMPT_CAUSE">HO_CAUSE</param>
+                <param type="PROC_HO_PREP_OUT_RESULT">ENB_SRC_HO_PREP_RESULT</param>
+                <param type="PROC_HO_PREP_IN_RESULT">ENB_TRG_HO_PREP_RESULT</param>
+                <param type="PROC_HO_EXEC_OUT_RESULT">ENB_SRC_HO_EXEC_RESULT</param>
+                <param type="PROC_HO_EXEC_IN_RESULT">ENB_TRG_HO_EXEC_RESULT</param>
+
+                <param type="TARGET_SELECTION_TYPE">TARGET_SELECTION_TYPE</param>
+                <param type="HO_ATTEMPT_CAUSE">HO_ATTEMPT_CAUSE</param>
+                <param type="RANDOM_ACCESS_TYPE">RANDOM_ACCESS_TYPE</param>
+                <param type="ENB_ID">ENB_ID_SOURCE</param>
+                <param type="ENBS1APID">ENBS1APID_SOURCE</param>
+                <param type="MMES1APID">MMES1APID_SOURCE</param>
+                <param type="GLOBAL_CELL_ID">CELL_ID_SOURCE</param>
+                <param type="GUMMEI">GUMMEI_SOURCE</param>
+                <param type="MCC">MCC_SOURCE</param>
+                <param type="MNC">MNC_SOURCE</param>
+                <param type="TAC">TAC_SOURCE</param>
+                <param type="MTMSI">MTMSI_SOURCE</param>
+                <param type="ECI">ECI_SOURCE</param>
+                <param type="MMEGI">MMEGI_SOURCE</param>
+                <param type="RSRQ">RSRQ_SOURCE</param>
+                <param type="RSRP">RSRP_SOURCE</param>
+                <param type="IPV4">SGSN_ADDR_V4_SOURCE</param>
+                <param type="IPV6">SGSN_ADDR_V6_SOURCE</param>
+                <param type="IPV4">SGW_ADDR_V4_SOURCE</param>
+                <param type="IPV6">SGW_ADDR_V6_SOURCE</param>
+                <param type="ENB_ID">RAC_UE_REF_SOURCE</param>
+                <param type="CGI">CGI_SOURCE</param>
+
+                <param type="GLOBAL_CELL_ID">PCI</param>
+
+                <param type="ENB_ID">ENB_ID_TARGET</param>
+                <param type="GLOBAL_CELL_ID">CELL_ID_TARGET</param>
+                <param type="GUMMEI">GUMMEI_TARGET</param>
+                <param type="ENBS1APID">ENBS1APID_TARGET</param>
+                <param type="MMES1APID">MMES1APID_TARGET</param>
+                <param type="ENB_ID">RAC_UE_REF_TARGET</param>
+                <param type="ECI">ECI_TARGET</param>
+                <param type="MCC">MCC_TARGET</param>
+                <param type="MNC">MNC_TARGET</param>
+                <param type="TAC">TAC_TARGET</param>
+                <param type="CGI">CGI_TARGET</param>
+                <param type="RSRP">RSRP_TARGET</param>
+                <param type="RSRQ">RSRQ_TARGET</param>
+                <param type="IPV4">SGSN_ADDR_V4_TARGET</param>
+                <param type="IPV6">SGSN_ADDR_V6_TARGET</param>
+                <param type="IPV4">SGW_ADDR_V4_TARGET</param>
+                <param type="IPV6">SGW_ADDR_V6_TARGET</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">DEFAULT_EPS_BEARER_ID</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARERS_DEFAULT_EPS_BEARER_ID</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARERS_BEARER_QCI</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARER_CAUSE</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARERS_DEFAULT_BEARER_ID</param>
+                <param type="BEARER_ID">MME_PDN_INFO_DEFAULT_BEARER_ID</param>
+                <param type="IPV4">PDNS_PAA_IPV4</param>
+                <param type="IPV6">PDNS_PAA_IPV6</param>
+                <param type="IPV4">PDNS_P_GW_IPV4</param>
+                <param type="IPV6">PDNS_P_GW_IPV6</param>
+
+                <param type="ERAB_BITMAP">HO_OUT_PREP_ERAB_REQ_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_OUT_PREP_ERAB_FAIL_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_OUT_EXEC_ERAB_REQ_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_OUT_EXEC_ERAB_FAIL_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_IN_PREP_ERAB_REQ_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_IN_PREP_ERAB_SUCC_BITMAP</param>
+            </elements>
+        </event>
+
+        <event>
+            <name>S1_HANDOVER</name>
+            <id>19001</id>
+            <comment>This event is an aggregation of the events that happen in S1 handovers</comment>
+            <elements>
+                <param type="DURATION">DURATION</param>
+                <param type="TIMESTAMP">END_TIMESTAMP</param>
+                <param type="TIMESTAMP">START_TIMESTAMP</param>
+                <param type="IMSI">IMSI</param>
+                <param type="IMEISV">IMEISV</param>
+                <param type="IMEISV">IMEITAC</param>
+                <param type="MME_HANDOVER_TYPE">MME_HO_TYPE</param>
+                <param type="EVENT_RESULT">RESULT</param>
+                <param type="EVENT_RESULT">ENB_RESULT</param>
+                <param type="EVENT_RESULT">MME_RESULT</param>
+                <param type="CAUSE_CODE">MME_CAUSE_CODE</param>
+                <param type="SUB_CAUSE_CODE">MME_SUB_CAUSE_CODE</param>
+                <param type="CAUSE_PROT_TYPE">MME_CAUSE_PROT_TYPE</param>
+
+
+                <param type="PROC_HO_PREP_OUT_ATTEMPT_CAUSE">HO_CAUSE</param>
+                <param type="PROC_HO_PREP_OUT_RESULT">ENB_SRC_HO_PREP_RESULT</param>
+                <param type="PROC_HO_PREP_IN_RESULT">ENB_TRG_HO_PREP_RESULT</param>
+                <param type="PROC_HO_EXEC_OUT_RESULT">ENB_SRC_HO_EXEC_RESULT</param>
+                <param type="PROC_HO_EXEC_IN_RESULT">ENB_TRG_HO_EXEC_RESULT</param>
+
+                <param type="TARGET_SELECTION_TYPE">TARGET_SELECTION_TYPE</param>
+                <param type="HO_ATTEMPT_CAUSE">HO_ATTEMPT_CAUSE</param>
+                <param type="RANDOM_ACCESS_TYPE">RANDOM_ACCESS_TYPE</param>
+                <param type="ENB_ID">ENB_ID_SOURCE</param>
+                <param type="ENBS1APID">ENBS1APID_SOURCE</param>
+                <param type="MMES1APID">MMES1APID_SOURCE</param>
+                <param type="GLOBAL_CELL_ID">CELL_ID_SOURCE</param>
+                <param type="GUMMEI">GUMMEI_SOURCE</param>
+                <param type="MCC">MCC_SOURCE</param>
+                <param type="MNC">MNC_SOURCE</param>
+                <param type="TAC">TAC_SOURCE</param>
+                <param type="MTMSI">MTMSI_SOURCE</param>
+                <param type="ECI">ECI_SOURCE</param>
+                <param type="MMEGI">MMEGI_SOURCE</param>
+                <param type="RSRQ">RSRQ_SOURCE</param>
+                <param type="RSRP">RSRP_SOURCE</param>
+                <param type="IPV4">SGSN_ADDR_V4_SOURCE</param>
+                <param type="IPV6">SGSN_ADDR_V6_SOURCE</param>
+                <param type="IPV4">SGW_ADDR_V4_SOURCE</param>
+                <param type="IPV6">SGW_ADDR_V6_SOURCE</param>
+                <param type="ENB_ID">RAC_UE_REF_SOURCE</param>
+                <param type="CGI">CGI_SOURCE</param>
+
+                <param type="GLOBAL_CELL_ID">PCI</param>
+
+                <param type="ENB_ID">ENB_ID_TARGET</param>
+                <param type="GLOBAL_CELL_ID">CELL_ID_TARGET</param>
+                <param type="GUMMEI">GUMMEI_TARGET</param>
+                <param type="ENBS1APID">ENBS1APID_TARGET</param>
+                <param type="MMES1APID">MMES1APID_TARGET</param>
+                <param type="ENB_ID">RAC_UE_REF_TARGET</param>
+                <param type="ECI">ECI_TARGET</param>
+                <param type="MCC">MCC_TARGET</param>
+                <param type="MNC">MNC_TARGET</param>
+                <param type="TAC">TAC_TARGET</param>
+                <param type="CGI">CGI_TARGET</param>
+                <param type="RSRP">RSRP_TARGET</param>
+                <param type="RSRQ">RSRQ_TARGET</param>
+                <param type="IPV4">SGSN_ADDR_V4_TARGET</param>
+                <param type="IPV6">SGSN_ADDR_V6_TARGET</param>
+
+                <param type="IPV4">SGW_ADDR_V4_TARGET</param>
+                <param type="IPV6">SGW_ADDR_V6_TARGET</param>
+
+                <param type="BEARERS_DEFAULT_BEARER_ID">DEFAULT_EPS_BEARER_ID</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARERS_DEFAULT_EPS_BEARER_ID</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARERS_BEARER_QCI</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARER_CAUSE</param>
+                <param type="BEARERS_DEFAULT_BEARER_ID">BEARERS_DEFAULT_BEARER_ID</param>
+                <param type="BEARER_ID">MME_PDN_INFO_DEFAULT_BEARER_ID</param>
+                <param type="IPV4">PDNS_PAA_IPV4</param>
+                <param type="IPV6">PDNS_PAA_IPV6</param>
+                <param type="IPV4">PDNS_P_GW_IPV4</param>
+                <param type="IPV6">PDNS_P_GW_IPV6</param>
+
+                <param type="ERAB_BITMAP">HO_OUT_PREP_ERAB_REQ_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_OUT_PREP_ERAB_FAIL_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_OUT_EXEC_ERAB_REQ_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_OUT_EXEC_ERAB_FAIL_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_IN_PREP_ERAB_REQ_BITMAP</param>
+                <param type="ERAB_BITMAP">HO_IN_PREP_ERAB_SUCC_BITMAP</param>
+                <!--<struct seqmaxlen="1" type="MILESTONES">MILESTONES</struct>-->
+                <param type="TIMESTAMP">CORRELATION_TIME</param>
+              
+            </elements>
+        </event>
+        <event>
+            <name>SERVICE_REQUEST_CORR</name>
+            <id>19002</id>
+            <comment>This event is an aggregation of the events that happen in UE
+                Triggered Service Request and Network Triggered Service Request
+            </comment>
+            <elements>
+				<param type="TIMESTAMP">START_TIMESTAMP</param>
+				<param type="TIMESTAMP">END_TIMESTAMP</param>
+				<param type="UINT_4">IMSI</param>
+				<param type="UINT_4">IMEISV</param>
+				<param type="UINT_4">MTMSI</param>
+				<param type="UINT_4">IMEITAC</param>
+				<param type="ENB_ID">RAC_UE_REF</param>
+				<param type="ENBS1APID">ENBS1APID</param>
+				<param type="MMES1APID">MMES1APID</param>
+				<param type="STRING_TYPE">GUMMEI</param>
+                <param type="GLOBAL_CELL_ID">GLOBAL_CELL_ID</param>
+                <param type="UINT_1">PAGING_ATTEMPTS</param>
+                <param type="BOOLEAN">PAGING</param>  <!-- 0 = UE Triggered Service Request else Network Triggered -->
+				<param type="STRING_TYPE">RESULT</param>
+				<param type="STRING_TYPE">ENB_RESULT</param>
+				<param type="STRING_TYPE">MME_RESULT</param>
+				<param type="STRING_TYPE">ENB_RESULT_CAUSE</param>
+				<param type="STRING_TYPE">MME_CAUSE_CODE</param>
+				<param type="STRING_TYPE">MME_SUB_CAUSE_CODE</param>
+				<param type="STRING_TYPE">MME_CAUSE_PROT_TYPE</param>
+ 				<param type="APN">APN</param>  
+                 <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="TAC">TAC</param>
+<!--                 <param type="MMEC">MMEC</param> -->
+				<param type="MSISDN">MSISDN</param>
+                <param type="IPV4">SGW_ADDR</param>
+           		<param type="IPV4">UE_ADDR</param> 				
+				<param type="STRING_TYPE">MME_NAME</param>
+				<struct seqmaxlen="16" type="BEARER_ARRAY" >BEARER</struct>
+            </elements>
+        </event>
+        <event>
+            <name>LTE_CALL_DROP</name>
+            <id>19003</id>
+            <comment>This event is an aggregation of the events that happen in UE
+                Context Release</comment>
+            <elements>
+                <param type="DURATION">DURATION</param>
+                <param type="TIMESTAMP">END_TIMESTAMP</param>
+                <param type="IMSI">IMSI</param>
+                <param type="IMEISV">IMEISV</param>
+               
+                <param type="ENBS1APID">ENBS1APID</param>
+                <param type="MMES1APID">MMES1APID</param>
+                <param type="GLOBAL_CELL_ID">CELL_ID</param>
+                <param type="ENB_ID">ENB_ID</param>
+                <param type="GUMMEI">GUMMEI</param>
+                <param type="APN">APN</param>
+                <param type="UINT_2">TYPE</param><!-- 0 Context release 1 for all other type  -->
+                <param type="TRIGGERING_NODE">TRIGGERING_NODE</param>
+                <param type="RELEASE_CAUSE">RELEASE_CAUSE</param>
+                <param type="RELEASE_CAUSE">INTERNAL_RELEASE_CAUSE</param>
+               
+                <param type="EVENT_RESULT">RESULT</param>
+                <param type="EVENT_RESULT">ENB_RESULT</param>
+                <param type="EVENT_RESULT">MME_RESULT</param>
+                <param type="EVENT_RESULT">ENB_RESULT_CAUSE</param>
+                <param type="CAUSE_CODE">MME_CAUSE_CODE</param>
+                <param type="SUB_CAUSE_CODE">MME_SUB_CAUSE_CODE</param>
+                <param type="CAUSE_PROT_TYPE">MME_CAUSE_PROT_TYPE</param>
+            
+            </elements>
+        </event>
+
+
+        <event>
+            <name>INITIAL_ATTACH</name>
+            <id>19007</id>
+            <comment>This event is an aggregation of the events that happen in UE
+                ATTACH procedure</comment>
+            <elements>
+           		<param type="TIMESTAMP">START_TIMESTAMP</param>
+               	<param type="TIMESTAMP">END_TIMESTAMP</param>
+				<param type="UINT_4">IMSI</param>
+				<param type="UINT_4">IMEISV</param>
+				<param type="UINT_4">IMEITAC</param>
+				<param type="UINT_4">MTMSI</param>
+				<param type="ENBS1APID">ENBS1APID</param>
+				<param type="MMES1APID">MMES1APID</param>
+				<param type="STRING_TYPE">GUMMEI</param>
+				<param type="ENB_ID">RAC_UE_REF</param>
+                <param type="GLOBAL_CELL_ID">GLOBAL_CELL_ID</param>
+				<param type="STRING_TYPE">ATTACH_TYPE</param>
+				<param type="STRING_TYPE">RESULT</param> <!-- SUCCESS, PARTIAL or FAILED -->
+				<param type="STRING_TYPE">ENB_RESULT</param>
+				<param type="STRING_TYPE">MME_RESULT</param>
+				<param type="STRING_TYPE">ENB_RESULT_CAUSE</param>
+				<param type="STRING_TYPE">MME_CAUSE_CODE</param>
+				<param type="STRING_TYPE">MME_SUB_CAUSE_CODE</param>
+				<param type="STRING_TYPE">MME_CAUSE_PROT_TYPE</param>
+                <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="TAC">TAC</param>
+<!--                 <param type="MMEC">MMEC</param> -->
+				<param type="STRING_TYPE">MME_NAME</param>
+  				<param type="MSISDN">MSISDN</param>
+                <param type="APN">APN</param>
+                <param type="IPV4">SGW_ADDR</param>
+                <param type="IPV4">PDNS_P_GW</param>
+                <param type="IPV4">UE_ADDR</param>
+				<struct seqmaxlen="16" type="BEARER_ARRAY" >BEARER</struct>
+            </elements>
+        </event>
+
+        <event>
+            <name>NET_TG_SERVICE_REQUEST_CORR</name>
+            <id>19009</id>
+            <comment>This event is an aggregation of the events that happen in Network
+                Triggered Service Request and Network Triggered Service Request
+            </comment>
+            <elements>
+                <param type="DURATION">DURATION</param>
+                <param type="UINT_8">IMSI</param>
+                <param type="UINT_8">IMEISV</param>
+                <param type="UINT_8">IMEITAC</param>
+                <param type="ENB_ID">ENB_ID</param>
+                <param type="GLOBAL_CELL_ID">CELL_ID</param>
+                <param type="PAGING_ATTEMPTS">PAGING_ATTEMPTS</param>
+                <param type="BOOLEAN">PAGING</param>
+                <param type="STRING_TYPE">RESULT</param>
+                <param type="STRING_TYPE">MME_CAUSE_CODE</param>
+                <param type="STRING_TYPE">MME_SUB_CAUSE_CODE</param>
+                <param type="STRING_TYPE">MME_CAUSE_PROT_TYPE</param>
+                <param type="STRING_TYPE">TYPE</param>
+                <param type="MTMSI">MTMSI</param>
+                <param type="ECI">ECI</param>
+                <param type="MCC">MCC</param>
+                <param type="MNC">MNC</param>
+                <param type="TAC">TAC</param>
+                <param type="APN">APN</param>
+                <param type="MMEGI">MMEGI</param>
+                <param type="MMEC">MMEC</param>
+                <param type="IPV4">SGW_ADDR</param>
+                <param type="IPV4">UE_ADDR</param>
+                <struct seqmaxlen="11" type="BEARER">BEARERS</struct>
+                <param type="TIMESTAMP">END_TIMESTAMP</param>
+                <param type="TIMESTAMP">CORRELATION_TIME</param>
+            </elements>
+        </event>
+
+   
+
+       
+		
+        <event>
+			<name>LTE_USER_SESSION</name>
+			<id>19050</id>
+			<comment>This event is an aggregation of the events that happen in user plane session correlation
+			</comment>
+			<elements>
+			<!-- ID  -->
+				<param type="TIMESTAMP">START_TIMESTAMP</param>
+				<param type="TIMESTAMP">END_TIMESTAMP</param>
+				<param type="DURATION">DURATION</param>
+				<param type="UINT_4">IMSI</param>
+				<param type="UINT_4">IMEISV</param>
+				<param type="UINT_4">TAC</param>
+				<param type="UINT_4">ENB_ID</param>
+				<param type="GLOBAL_CELL_ID">CELL_ID</param>
+				<param type="STRING_TYPE">GUMMEI</param>
+				<param type="ENBS1APID">ENBS1APID</param>
+				<param type="MMES1APID">MMES1APID</param>
+				<param type="UINT_4">RAC_UE_REF</param>
+				<param type="UINT_2">ASR</param>
+				<param type="TEXT">FGI</param>
+				<param type="UINT_2">UE_CAPABILITY</param>
+				<!-- asr fgi ue_cap-->
+				<param type="UINT_2">TOTAL_SAMPLES</param>
+				<param type="UINT_2">CSFB_ATT_COUNT</param>
+				<param type="UINT_2">TRIGGER_NODE</param>
+				<param type="UINT_2">UE_CTXT_RELEASE_CAUSE_S1</param>
+				<param type="UINT_2">UE_CTXT_RELEASE_CAUSE</param>
+				
+				<!-- ID ends -->
+				<!-- THROUGHPUT  -->
+				<param type="VOL_TOTAL_DL">VOL_TOTAL_DL</param>
+				<param type="VOL_TOTAL_UL">VOL_TOTAL_UL</param>
+				<param type="VOL_THP_DL">VOL_THP_DL</param>
+				<param type="VOL_THP_UL">VOL_THP_UL</param>
+				<param type="TIME_THP_DL">TIME_THP_DL</param>
+				<param type="TIME_THP_UL">TIME_THP_UL</param>
+				<param type="THP_AVE_DL">THP_AVE_DL</param>
+				<param type="THP_AVE_UL">THP_AVE_UL</param>
+				<param type="UINT_8">UL_RATE_SHAPING_TIME</param><!--todo!-->
+				<param type="UINT_2">UE_TRAF_REP_SAMPLES</param><!--todo!-->
+			<!-- 	<param type="SAMPLES_DL">SAMPLES_DL</param> -->
+				<!-- LATENCY & DELAY -->
+				<!-- <param type="LATENCY_DL">LATENCY_DL</param>
+				<param type="DELAY_SAMPLES">DELAY_SAMPLES</param>
+				<param type="DL_MAC_DELAY">DL_MAC_DELAY</param> -->
+				
+			<!-- 	
+				RB -INFO
+				<param type="NUM_BEARERS">NUM_BEARERS</param>
+				<param type="SAMPLES_UL">RB_TRAF_REP_SAMPLES</param>todo!
+				<struct seqmaxlen="1" type="BEARER_IDS_BYTE_TYPE">BEARER</struct>
+				<struct seqmaxlen="1" type="BEARER_TYPES_BYTE_TYPE">BEARER</struct>
+				<struct seqmaxlen="1" type="BEARER_IDS_BYTE_TYPE">ERAB</struct>
+				
+				<param  type="PDCP_ACKVOL_DL_PER_RB">PDCP_ACKVOL_DL_PER_RB</param>
+				<param  type="PDCP_TRANSVOL_DL_PER_RB">PDCP_TRANSVOL_DL_PER_RB</param>
+				<param  type="PDCP_RECVOL_UL_PER_RB">PDCP_RECVOL_UL_PER_RB</param>
+				<param  type="LATENCY_DL_PER_RB">LATENCY_DL_PER_RB</param>
+				<param  type="LATENCY_DL_SAMPLES_PER_RB">LATENCY_DL_SAMPLES_PER_RB</param>
+				<param  type="RLC_DELAY_DL_PER_RB">RLC_DELAY_DL_PER_RB</param>
+				<param  type="RLC_DELAY_DL_SAMPLES_PER_RB">RLC_DELAY_DL_SAMPLES_PER_RB</param>
+				 -->
+
+				<!-- SCHEDULING -->
+				<param type="SCHED_RESTRICT_UE_CAT_DL">TOTAL_SCHED_RESTRICT_UE_CAT_DL</param>
+				<param type="SCHED_RESTRICT_UE_CAT_UL">TOTAL_SCHED_RESTRICT_UE_CAT_UL</param>
+				<param type="SCHED_ACTIVITY_UE_DL">TOTAL_SCHED_ACTIVITY_UE_DL</param>
+				<param type="SCHED_ACTIVITY_UE_UL">TOTAL_SCHED_ACTIVITY_UE_UL</param>
+				<!-- PACKET -->
+				<param type="PACKET_TR_DL">PACKET_TR_DL</param>
+				<param type="PACKET_REC_DL">PACKET_REC_DL</param>
+				<param type="PACKET_LOST_HO_DL">PACKET_LOST_HO_DL</param>
+				<param type="PACKET_LOST_PELR_DL">PACKET_LOST_PELR_DL</param>
+				<param type="PACKET_REC_UL">PACKET_REC_UL</param>
+				<param type="PACKET_LOST_UL">PACKET_LOST_UL</param>
+				<param type="PACKET_LOST_PERL_UU_DL">PACKET_LOST_PERL_UU_DL</param>
+				<param type="PACKET_LOST_PERL_UU_DL">PACKET_LOST_PELR_UU_DL_RLCUM</param>
+				<param type="PACKET_LOST_PERL_UU_DL">PACKET_FWD_DL</param>
+				
+				<!-- RLC -->
+				<param type="RLC_ACK_DL">TOTAL_RLC_ACK_DL</param>
+				<param type="RLC_NACK_DL">TOTAL_RLC_NACK_DL</param>
+				<param type="RLC_ACK_UL">TOTAL_RLC_ACK_UL</param>
+				<param type="RLC_NACK_UL">TOTAL_RLC_NACK_UL</param>
+				
+				<!-- RADIO THROUGHPUT -->
+				<param type="RADIOTHP_VOL_DL">RADIOTHP_VOL_DL</param>
+				<param type="RADIOTHP_RES_DL">RADIOTHP_RES_DL</param>
+				<param type="RADIO_VOL_UL">RADIO_VOL_UL</param>
+				<param type="RADIOTHP_RES_UL">RADIOTHP_RES_UL</param>
+				<!-- CQI -->
+				<param type="CQI_AVG">CQI_AVG</param>
+				<param type="TEXT">CQI_REPORTED</param>
+				<!-- POWER -->
+				<param type="POWER_RESTRICT">POWER_RESTRICT</param>
+				<param type="POWER_NO_RESTRICT">POWER_NO_RESTRICT</param> 
+				<!-- PERIODIC RADIO MEASUREMENT -->
+				<param type="RSRP_AVG">RSRP_AVG</param>
+				<param type="RSRQ_AVG">RSRQ_AVG</param>
+					<param type="TEXT">RSRP_RSRQ_REPORTED</param>
+				<param type="UINT_2">UE_MOBILITY_SAMPLES</param> 
+				
+				<!-- CELL INFO -->
+				<param type="GENERIC_DOUBLE">ACTIVE_UE_DL_AVG</param> 
+				<param type="GENERIC_DOUBLE">ACTIVE_UE_UL_AVG</param> 
+				
+				
+			</elements>
+		</event>
+		
+	 
+        <event>
+            <name>LTE_CALL_SETUP_FAILURE</name>
+            <id>19052</id>
+            <comment>This event details a LTE Call setup failure i.e. cases where the ENodeB does not 
+            produce the expected sequence of events: INTERNAL_PROC_RRC_CONN_SETUP, INTERNAL_PROC_S1_SIG_CONN_SETUP
+            and INTERNAL_PROC_INITIAL_CTXT_SETUP.  Or when we have the Radio Events but no matching Core event</comment>
+            <elements>
+           		<param type="TIMESTAMP">START_TIMESTAMP</param>
+               	<param type="TIMESTAMP">END_TIMESTAMP</param>
+				<param type="UINT_4">IMSI</param>
+				<param type="UINT_4">IMEISV</param>
+				<param type="UINT_4">IMEITAC</param>
+				<param type="ENBS1APID">ENBS1APID</param>
+				<param type="MMES1APID">MMES1APID</param>
+				<param type="STRING_TYPE">GUMMEI</param>
+				<param type="ENB_ID">RAC_UE_REF</param>
+                <param type="GLOBAL_CELL_ID">GLOBAL_CELL_ID</param>
+<!--                 <param type="ENB_ID">ENB_ID</param>
+                <param type="MMEC">MMEC</param> -->
+				<param type="STRING_TYPE">RESULT</param>
+				<param type="STRING_TYPE">ENB_RESULT</param>
+				<param type="STRING_TYPE">ENB_RESULT_CAUSE</param>
+				<param type="STRING_TYPE">MME_RESULT</param>
+				<param type="STRING_TYPE">MME_CAUSE_CODE</param>
+<!--                 <param type="TIMESTAMP">CORRELATION_TIME</param>  -->
+                <param type="BOOLEAN">IPRCS</param>
+                <param type="BOOLEAN">IPSSCS</param>
+                <param type="BOOLEAN">IPICS</param>
+            </elements>
+        </event>		 
+   	
+       <event>
+			<name>LTE_ERAB_SESSION</name>
+			<id>19055</id>
+			<comment>This event is an aggregation of the events that happen in bearer session
+			</comment>
+			<elements>
+				<param type="TIMESTAMP">START_TIME</param>
+				<param type="TIMESTAMP">END_TIME</param>
+				<param type="DURATION">DURATION</param>
+				<param type="UINT_4">IMSI</param>
+				<param type="UINT_4">IMEISV</param>
+				<param type="UINT_4">TAC</param>
+				<param type="UINT_2">BEARER_ID</param>
+				<param type="UINT_2">BEARER_TYPE</param>
+				<param type="UINT_2">ERAB_ID</param>
+				<param type="UINT_2">TOTAL_SAMPLES</param>
+				<!-- <param type="SAMPLES_UL">RB_TRAF_REP_SAMPLES</param> -->
+				<param  type="PDCP_ACKVOL_DL_PER_RB">PDCP_ACKVOL_DL_PER_RB</param>
+				<param  type="PDCP_TRANSVOL_DL_PER_RB">PDCP_TRANSVOL_DL_PER_RB</param>
+				<param  type="PDCP_RECVOL_UL_PER_RB">PDCP_RECVOL_UL_PER_RB</param>
+				<param  type="LATENCY_DL_PER_RB">LATENCY_DL_PER_RB</param>
+				<param  type="LATENCY_DL_PER_RB">MAX_LATENCY_DL_PER_RB</param>
+				<param  type="LATENCY_DL_SAMPLES_PER_RB">LATENCY_DL_SAMPLES_PER_RB</param>
+				<param  type="RLC_DELAY_DL_PER_RB">RLC_DELAY_DL_PER_RB</param>
+				<param  type="RLC_DELAY_DL_PER_RB">MAX_RLC_DELAY_DL_PER_RB</param>
+				<param  type="RLC_DELAY_DL_SAMPLES_PER_RB">RLC_DELAY_DL_SAMPLES_PER_RB</param>
+
+
+			</elements>
+		</event>
+        
+       
+    </events>
+</eventspecification>
+  

@@ -1,0 +1,2 @@
+Code,Group,Developer Message,HTTP Code
+4000001,Authorization,User not authorized to invoke the called operation.,401

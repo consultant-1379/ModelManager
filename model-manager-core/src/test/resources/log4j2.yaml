@@ -1,0 +1,25 @@
+Configutation:
+  name: MODEL_MANAGER_TEST
+
+  Appenders:
+    Console:
+      name: STDOUT
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%d{HH:mm:ss:SSS} %-5p (%c) (%t:%x) - %m%n"
+
+  Loggers:
+    Logger:
+        -
+         name: com.ericsson.component.aia.sdk.modelmanager
+         level: debug     
+         additivity: false
+         AppenderRef:
+            -
+             ref: STDOUT
+
+    Root:
+        level: info
+        AppenderRef:
+          -
+            ref: STDOUT

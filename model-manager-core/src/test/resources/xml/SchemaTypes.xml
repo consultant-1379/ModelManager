@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemaTypes xmlns="http://www.ericsson.com/SchemaTypes">
+
+	<!-- Configuration for schemas. Schema revisions should increase lexically, 
+		with the highest schema revision being the highest lexically; Mappings will 
+		be generated towards the highest lexical schema from other schemas -->
+
+	<!-- Cell Trace -->
+	<schemaType>
+		<name>celltrace</name>
+		<idLength>24</idLength>       <!-- in bits -->
+		<idStartPos>0</idStartPos>    <!-- in bits -->
+		<idInEvent>false</idInEvent>  <!-- true if the event ID is included in the event as a field -->
+		<paramPreamble>EVENT_PARAM_</paramPreamble>
+		<valuePreamble>EVENT_VALUE_</valuePreamble>
+		<xmlFiles>
+			<path>xml/celltrace/M_V7.xml</path>     <!-- xml/celltrace/PmEvents_V7.xml 12B    -->
+			<path>xml/celltrace/S_AA3.xml</path>    <!-- xml/celltrace/PmEvents_AA3.xml       -->
+			<path>xml/celltrace/S_AA7.xml</path>    <!-- xml/celltrace/PmEvents_AA7.xml       -->
+			<path>xml/celltrace/S_AA11.xml</path>   <!-- xml/celltrace/PmEvents_AA11_L13A.xml -->
+			<path>xml/celltrace/S_AB3.xml</path>    <!-- xml/celltrace/PmEvents_AB3-L13A.xml  -->
+			<path>xml/celltrace/S_AB8.xml</path>    <!-- xml/celltrace/PmEvents_AB8-L13B.xml  -->
+			<path>xml/celltrace/S_AB11.xml</path>   <!-- xml/celltrace/PmEvents_AB11_L13B.xml -->
+			<path>xml/celltrace/T_R5A_21.xml</path>  <!-- xml/celltrace/PmEvents_R5A_L14A.xml  -->
+			<path>xml/celltrace/T_R6A_22.xml</path>  <!-- xml/celltrace/PmEvents_R6A_L14B.xml  -->
+			<path>xml/celltrace/T_R7B_22.xml</path>  <!-- xml/celltrace/PmEvents_R7B_L14B.xml  -->
+			<path>xml/celltrace/T_R8A_23.xml</path>  <!-- xml/celltrace/PmEvents_R8A_L15B.xml  -->
+			<path>xml/celltrace/T_R9A_23.xml</path>  <!-- xml/celltrace/PmEvents_R9A_L15B.xml  -->
+			<path>xml/celltrace/T_R6A_24.xml</path>  <!-- xml/celltrace/PmEvents_R6A_L16A.xml  -->
+			<path>xml/celltrace/T_R8A_24.xml</path>  <!-- xml/celltrace/PmEvents_R8A_L16A.xml  -->
+			<path>xml/celltrace/T_R10A_24.xml</path> <!-- xml/celltrace/PmEvents_R10A_L16A.xml -->
+			<path>xml/celltrace/T_R12A_24.xml</path> <!-- xml/celltrace/PmEvents_R12A_L16A.xml -->
+			<path>xml/celltrace/T_R2A_25.xml</path>  <!-- xml/celltrace/PmEvents_R2A_L16B.xml  -->
+			<path>xml/celltrace/T_R4A_25.xml</path>  <!-- xml/celltrace/PmEvents_R4A_L16B.xml  -->
+			<path>xml/celltrace/T_R6A_25.xml</path>  <!-- xml/celltrace/PmEvents_R6A_L16B.xml  -->
+			<path>xml/celltrace/T_R8A_25.xml</path>  <!-- L16B -->
+			<path>xml/celltrace/T_R10A_25.xml</path>  <!-- L16B -->
+			<path>xml/celltrace/T_R2A_26.xml</path>  <!-- L17A -->
+			<path>xml/celltrace/T_R8A_26.xml</path>  <!-- L17A -->
+			<path>xml/celltrace/PmEvents_Y5.xml</path>
+			<path>xml/celltrace/PmEvents_Z-L13A.xml</path>
+			<path>xml/celltrace/T_R12A_26.xml</path> <!-- L17A -->
+		</xmlFiles>
+	</schemaType>
+       		<!-- CTUM -->
+    		<schemaType>
+        	<name>ctum</name>
+        	<idLength>0</idLength>       <!-- in bits -->
+       		<idStartPos>0</idStartPos>    <!-- in bits -->
+        	<idInEvent>true</idInEvent>  <!-- true if the event ID is included in the event as a field -->
+        	<xmlFiles>
+            		<path>xml/ctum/ctum_definition.xml</path>
+                 	<path>xml/ctum/CTUM_C_L13A.xml</path>
+        	</xmlFiles>
+    	</schemaType>
+		<!-- EBM -->
+	<schemaType>
+		<name>ebm</name>
+		<idLength>8</idLength>       <!--in bits 													-->
+		<idStartPos>0</idStartPos>   <!--in bits 													-->
+		<idInEvent>true</idInEvent>  <!--true if the event ID is included in the event as a field 	-->
+		<xmlFiles><!-- /<FFV>_<FIV>_<Iteration>.xml  -->
+			<path>xml/ebm/4_21.xml</path>        <!-- xml/ebm/EBM_S2-14A.xml        -->
+			<path>xml/ebm/4_11.xml</path>        <!-- xml/ebm/EBM_E-L10B.xml        -->
+			<path>xml/ebm/4_15.xml</path>        <!-- xml/ebm/EBM_J-L11B.xml        -->
+			<path>xml/ebm/4_23.xml</path>     <!-- xml/ebm/EBM_T1-14B-CP.xml     -->
+			<path>xml/ebm/4_30.xml</path>    <!-- xml/ebm/EBM_U2-15A-CP1.xml    -->
+			<path>xml/ebm/4_31.xml</path>   <!-- EBM_V2_15B-CP01.xml           -->
+			<path>xml/ebm/4_33.xml</path>        <!-- xml/ebm/EBM_V2_16A.xml        -->
+		</xmlFiles>
+	</schemaType>
+	<schemaType>
+                  <name>correlation</name>
+                  <idLength>0</idLength>       <!-- in bits -->
+                  <idStartPos>0</idStartPos>   <!-- in bits -->
+                  <idInEvent>true</idInEvent> <!-- true if the event ID is included in the event as a field -->
+                  <xmlFiles>
+                          <path>xml/correlation/CorrelatedEvents_PA1.xml</path>
+                  </xmlFiles>
+         </schemaType>
+</schemaTypes>

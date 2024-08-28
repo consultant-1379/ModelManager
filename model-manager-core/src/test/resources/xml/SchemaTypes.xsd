@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.ericsson.com/SchemaTypes"
+	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ericsson.com/SchemaTypes"
+	elementFormDefault="qualified">
+	<element name="schemaTypes" type="tns:SchemaTypes"></element>
+
+	<complexType name="SchemaType">
+		<sequence>
+			<element name="name" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="idLength" maxOccurs="1" minOccurs="1">
+				<simpleType>
+					<restriction base="integer">
+						<minInclusive value="0"></minInclusive>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="idStartPos" type="integer" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="idInEvent" type="boolean" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="paramPreamble" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="valuePreamble" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="xmlFiles" type="tns:XmlFiles" maxOccurs="1" minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="XmlFiles">
+			<sequence>
+				<element name="path" maxOccurs="unbounded" minOccurs="0">
+					<simpleType>
+						<restriction base="string">
+							<minLength value="1"></minLength>
+						</restriction>
+					</simpleType>
+				</element>
+			</sequence>
+	</complexType>
+    <complexType name="SchemaTypes">
+    	<sequence>
+            <element name="schemaType" type="tns:SchemaType"
+    			maxOccurs="unbounded" minOccurs="1">
+    		</element>
+    	</sequence>
+    </complexType>
+</schema>
